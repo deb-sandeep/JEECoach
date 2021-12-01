@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="sConsoleApp">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SConsole</title>
+
+    <link rel="stylesheet" href="/js/lib/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/app/app.css"/>
+    <link rel="stylesheet" href="/css/app/qbm.css"/>
+    <link rel="stylesheet" href="/css/pure/tables.css"/>
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ TeX: { extensions: ["mhchem.js"] }});
+    </script>
+    <script type="text/javascript" 
+            src="/js/lib/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full">
+    </script>
+    
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/lib/angular-route.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/lib/dombuilder/DOMBuilder.min.js"></script>
+    <script src="/js/lib/rgraph/RGraph.common.core.js"></script>
+    <script src="/js/lib/rgraph/RGraph.common.key.js"></script>
+    <script src="/js/lib/rgraph/RGraph.hbar.js"></script>
+    
+    <script>
+        DOMBuilder.apply( window, 'dom' ) ;
+    </script>
+
+    <script src="/js/app/ng/app-ng.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/edit_helper.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/directive.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/latex_snippets.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/edit_question.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/search_question.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/qb_insight.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/mmt_editor.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/bulk_edit.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/route.js"></script>
+    <script src="/js/app/ng/jeetest/qbm/qbm.js"></script>
+</head>
+
+<body ng-controller="QBMController">
+
+<nav class="navbar navbar-inverse navbar-static-top"
+     style="min-height:0px;margin-bottom:0px;">
+    <div class="container" style="width:100%">
+        <div class="row" >
+            <div class="col-sm-7">
+                [ <a href="/jeetest">JEE Exam</a> ] - {{navBarTitle}}
+            </div>
+            <div class="col-sm-5">
+                <div class="pull-right">
+				    <a href="#!/editQuestion/-1">
+				        <button type="button" class="btn btn-success">
+				        <span class="glyphicon glyphicon-edit"></span>
+				        Edit
+				        </button>
+				    </a>
+                    <a href="#!/bulkEdit">
+                        <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Bulk Edit
+                        </button>
+                    </a>
+	                <a href="#!/searchQuestions">
+                        <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Search
+                        </button>
+	                </a>
+                    <a href="#!/qbInsight">
+                        <button type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        Insights
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="alert alert-danger alert-dismissible" ng-repeat="alert in alerts">
+<a ng-click="dismissAlert( $index )" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+{{alert.msg}}
+</div>
+
+<div ng-view></div>
+
+</body>
+</html>

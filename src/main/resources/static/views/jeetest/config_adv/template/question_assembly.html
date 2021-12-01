@@ -1,0 +1,287 @@
+<table width="100%">
+    <tbody>
+        <tr>
+            <td colspan="2">
+                <div class="panel panel-default">
+                    <div class="panel-heading test-config-qass-heading">
+                        <button class="btn btn-warning btn-sm"
+                                style="padding:0px 5px;"
+                                ng-click="saveTest()">
+                               <span class="glyphicon glyphicon-floppy-save"></span>
+                               Save
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="panel-title">
+                        Custom duration (min) :
+                        <input type="number"
+                               ng-model="$parent.customDuration"
+                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                               maxlength="4"
+                               style="width:60px;">
+                        </span>
+                        <span class="panel-title">
+                        Name :
+                        <input ng-model="$parent.shortName">
+                        </span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="panel panel-default">
+                    <table class="jee-adv-config-summary-table">
+                        <tr>
+                            <th></th>
+                            <th colspan=3>Total</th>
+                            <th colspan=3>Physics</th>
+                            <th colspan=3>Chem</th>
+                            <th colspan=3>Maths</th>
+                        </tr>
+                        <tr>
+                            <th>QType</th>
+                            <th># Q</th>
+                            <th># T</th>
+                            <th># M</th>
+                            <th># Q</th>
+                            <th># T</th>
+                            <th># M</th>
+                            <th># Q</th>
+                            <th># T</th>
+                            <th># M</th>
+                            <th># Q</th>
+                            <th># T</th>
+                            <th># M</th>
+                        </tr>
+                        <tr>
+                            <td>{{selectedSectionTypes.section1Type}}</td>
+                            <td>{{getTotalQuestions( null, selectedSectionTypes.section1Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( null, selectedSectionTypes.section1Type ) | duration }}</td>
+                            <td>{{getTotalMarks( null, selectedSectionTypes.section1Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Physics', selectedSectionTypes.section1Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Physics', selectedSectionTypes.section1Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Physics', selectedSectionTypes.section1Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Chemistry', selectedSectionTypes.section1Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Chemistry', selectedSectionTypes.section1Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Chemistry', selectedSectionTypes.section1Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Maths', selectedSectionTypes.section1Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Maths', selectedSectionTypes.section1Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Maths', selectedSectionTypes.section1Type )}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{selectedSectionTypes.section2Type}}</td>
+                            <td>{{getTotalQuestions( null, selectedSectionTypes.section2Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( null, selectedSectionTypes.section2Type ) | duration }}</td>
+                            <td>{{getTotalMarks( null, selectedSectionTypes.section2Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Physics', selectedSectionTypes.section2Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Physics', selectedSectionTypes.section2Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Physics', selectedSectionTypes.section2Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Chemistry', selectedSectionTypes.section2Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Chemistry', selectedSectionTypes.section2Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Chemistry', selectedSectionTypes.section2Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Maths', selectedSectionTypes.section2Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Maths', selectedSectionTypes.section2Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Maths', selectedSectionTypes.section2Type )}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{selectedSectionTypes.section3Type}}</td>
+                            <td>{{getTotalQuestions( null, selectedSectionTypes.section3Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( null, selectedSectionTypes.section3Type ) | duration }}</td>
+                            <td>{{getTotalMarks( null, selectedSectionTypes.section3Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Physics', selectedSectionTypes.section3Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Physics', selectedSectionTypes.section3Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Physics', selectedSectionTypes.section3Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Chemistry', selectedSectionTypes.section3Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Chemistry', selectedSectionTypes.section3Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Physics', selectedSectionTypes.section3Type )}}</td>
+                            <td>{{getTotalQuestions( 'IIT - Maths', selectedSectionTypes.section3Type )}}</td>
+                            <td class="fixed-font">{{getTotalTime( 'IIT - Maths', selectedSectionTypes.section3Type ) | duration }}</td>
+                            <td>{{getTotalMarks( 'IIT - Maths', selectedSectionTypes.section3Type )}}</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <th>{{getTotalQuestions( null, null)}}</th>
+                            <th class="fixed-font">{{getTotalTime( null, null) | duration }}</th>
+                            <th>{{getTotalMarks( null, null)}}</th>
+                            <th>{{getTotalQuestions( 'IIT - Physics', null )}}</th>
+                            <th class="fixed-font">{{getTotalTime( 'IIT - Physics', null ) | duration }}</th>
+                            <th>{{getTotalMarks( 'IIT - Physics', null )}}</th>
+                            <th>{{getTotalQuestions( 'IIT - Chemistry', null )}}</th>
+                            <th class="fixed-font">{{getTotalTime( 'IIT - Chemistry', null ) | duration }}</th>
+                            <th>{{getTotalMarks( 'IIT - Chemistry', null )}}</th>
+                            <th>{{getTotalQuestions( 'IIT - Maths', null )}}</th>
+                            <th class="fixed-font">{{getTotalTime( 'IIT - Maths', null ) | duration }}</th>
+                            <th>{{getTotalMarks( 'IIT - Maths', null )}}</th>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="350px">
+                <div class="panel panel-default">
+                    <div class="panel-heading test-config-qass-heading">
+                        <span class="panel-title">
+                        {{selectedSubject}} - {{selectedSectionTypes.section1Type}}
+                        </span>
+                        <div class="pull-right">
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="shuffleAssembledQuestions( selectedSectionTypes.section1Type )">
+                                    <span class="glyphicon glyphicon-random"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByLatLevel( selectedSectionTypes.section1Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    L
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByProjTime( selectedSectionTypes.section1Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    P
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionUp()">
+                                    <span class="glyphicon glyphicon-menu-up"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionDown()">
+                                    <span class="glyphicon glyphicon-menu-down"></span>
+                             </button>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding:0px">
+                       <select class="form-control question-select" 
+                               size=7
+                               style="padding:3px;"
+                               ng-options="item as item|qSelFmt for item in assembledQuestions[ selectedSubject ][ selectedSectionTypes.section1Type ]"
+                               ng-model="$parent.selectedQuestion"
+                               ng-change="questionSelectionChanged()"
+                               ng-dblclick="removeAssembledQuestion()">
+                           <option style="display:none" value="">select a type</option>
+                       </select>
+                    </div>
+                </div>
+            </td>
+            <td valign="top">
+               <canvas ng-attr-id="{{selectedSectionTypes.section1Type}}_ramp_graph" width="600" height="170">
+                   [No canvas support]
+               </canvas>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel-heading test-config-qass-heading">
+                        <span class="panel-title">
+                        {{selectedSubject}} - {{selectedSectionTypes.section2Type}}
+                        </span>
+                        <div class="pull-right">
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="shuffleAssembledQuestions( selectedSectionTypes.section2Type )">
+                                    <span class="glyphicon glyphicon-random"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByLatLevel( selectedSectionTypes.section2Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    L
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByProjTime( selectedSectionTypes.section2Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    P
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionUp()">
+                                    <span class="glyphicon glyphicon-menu-up"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionDown()">
+                                    <span class="glyphicon glyphicon-menu-down"></span>
+                             </button>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding:0px">
+                       <select class="form-control question-select" 
+                               size=7
+                               style="padding:3px;"
+                               ng-options="item as item|qSelFmt for item in assembledQuestions[ selectedSubject ][ selectedSectionTypes.section2Type ]"
+                               ng-model="$parent.selectedQuestion"
+                               ng-dblclick="removeAssembledQuestion()">
+                           <option style="display:none" value="">select a type</option>
+                       </select>
+                    </div>
+                </div>
+            </td>
+            <td valign="top">
+               <canvas ng-attr-id="{{selectedSectionTypes.section2Type}}_ramp_graph" width="600" height="170">
+                   [No canvas support]
+               </canvas>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel-heading test-config-qass-heading">
+                        <span class="panel-title">
+                        {{selectedSubject}} - {{selectedSectionTypes.section3Type}}
+                        </span>
+                        <div class="pull-right">
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="shuffleAssembledQuestions( selectedSectionTypes.section3Type )">
+                                    <span class="glyphicon glyphicon-random"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByLatLevel( selectedSectionTypes.section3Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    L
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="sortAssembledQuestionsByProjTime( selectedSectionTypes.section3Type )">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    P
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionUp()">
+                                    <span class="glyphicon glyphicon-menu-up"></span>
+                             </button>
+                             <button class="btn btn-warning btn-sm"
+                                     style="padding:0px 5px;"
+                                     ng-click="moveQuestionDown()">
+                                    <span class="glyphicon glyphicon-menu-down"></span>
+                             </button>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding:0px">
+                       <select class="form-control question-select" 
+                               size=7
+                               style="padding:3px;"
+                               ng-options="item as item|qSelFmt for item in assembledQuestions[ selectedSubject ][ selectedSectionTypes.section3Type ]"
+                               ng-model="$parent.selectedQuestion"
+                               ng-dblclick="removeAssembledQuestion()">
+                           <option style="display:none" value="">select a type</option>
+                       </select>
+                    </div>
+                </div>
+            </td>
+            <td valign="top">
+               <canvas ng-attr-id="{{selectedSectionTypes.section3Type}}_ramp_graph" width="600" height="170">
+                   [No canvas support]
+               </canvas>
+            </td>
+        </tr>
+    </tbody>
+</table>

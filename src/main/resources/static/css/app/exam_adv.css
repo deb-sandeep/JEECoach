@@ -1,0 +1,256 @@
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+#adv-section-tab-panel-1 {
+    width:100%;
+    height:50px;
+    background-color: #f4f4f9;
+    padding-left:20px ;
+    padding-top:7px;
+}
+
+#adv-section-tab-panel-2 {
+    width:100%;
+    background-color: #ffffff;
+    padding-left:20px ;
+    padding-top:0px;
+    padding-bottom:0px;
+    border-style:solid ;
+    border-color:#d5d7de ;
+    border-width:1px;
+}
+
+#adv-exam-header {
+    width: 100%;
+    display: flex;
+}
+
+#adv-exam-section-headers {
+    position:relative;
+    width: calc(100vw - 70px);;
+}
+
+#candidate-img-header {
+    position:relative;
+    width: 70px;
+    border-style:solid ;
+    border-color:#d5d7de ;
+    border-width:1px;
+}
+
+.tab-panel-2-btn {
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:5px;
+    padding-right:5px;
+    border:0px none white;
+    border-right:1px solid #d5d7de !important;
+    color:#5295e8;
+    font-weight:bold;
+    border-radius:0px;
+}
+
+#timer-adv {
+    padding-left:10px;
+    padding-right:10px;
+    margin:0px;
+    line-height: 27px;
+    text-align:center;
+    font-size:20px;
+    font-family:Courier New;
+    font-style:normal;
+    font-weight:normal;
+}
+
+#timer-lap {
+    padding-left:10px;
+    padding-right:10px;
+    margin-left:5px;
+    margin-right:5px;
+    text-align:center;
+    font-size:15px;
+    font-family:Courier New;
+    font-style:normal;
+    font-weight:normal;
+}
+
+#sec-info-div {
+	display : none;
+	position : absolute;
+	background-color : #daf7fe ;
+    border-style:solid ;
+    border-color:#d8dbe2 ;
+    border-width:1px;
+}
+
+#sec-info-div td {
+	font-size : 14px;
+	padding : 2px;
+}
+
+#sec-info-div .section-hover-div-header {
+    background-color : #b3e3fc ;
+	font-size : 15px;
+    padding : 5px;
+}
+
+.full-paper-sec-header {
+	width:100%;
+	padding:10px;
+    background-color : #b3e3fc ;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.full-paper-question-header {
+    width:100%;
+    padding:3px;
+    background-color : #e7e0ea ;
+    font-size: 14px;
+}
+
+#adv-question-control-split-pane {
+    width: 100%;
+    height: calc(100vh - 178px);
+    display: flex;
+}
+
+#adv-question-display-panel {
+    position:relative;
+    width: 80%;
+    height: 100%;
+}
+
+#adv-question-palette-panel {
+    position:relative;
+    width: 20%;
+    height: 100%;
+    border-style:hidden;
+    border-left-style:solid;
+    border-color:#f4f4f4;
+    border-width:3px;
+}
+
+#adv-attempt-stat-panel {
+    width:100%;
+    height:190px;
+    background-color:#fff;
+    padding:10px;
+	padding-top:20px;
+    font-size:17px;
+}
+
+#adv-attempt-stat-panel td {
+    font-size:14px;
+    padding-top:10px;
+    padding-bottom:5px;
+}
+
+#palette-section-name {
+	font-size: 20px;
+	background-color: #649def;
+	padding: 5px;
+	padding-left:20px;
+	color: white;
+}
+
+#adv-question-control-dashboard {
+    position:relative;
+    width:100%;
+    height:calc( 100% - 226px ) ;
+    background-color:#d8eefa;
+    padding:10px;
+    overflow:auto;
+}
+
+#adv-footer {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:50px;
+    background-color:#ffffff;
+    border: 1px solid #c4c1c8;
+}
+
+#adv-question-action-panel {
+    position:relative;
+    width: 80%;
+    height: 100%;
+    display: inline-block;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:7px;
+}
+
+#adv-submit-btn-panel {
+    position:relative;
+    width:19%;
+    height: 100%;
+    display: inline-block;
+    padding-left:20px;
+    padding-top:7px;
+}
+
+.selected-section {
+    background-color: #649def  !important;
+    color: white ;
+}
+
+#adv-question-display-scroll-pane {
+    position:relative;
+    width:100%;
+    height:calc(100vh - 177px);
+    padding-left:10px;
+    padding-right:10px;
+    overflow:auto;
+    background-color:#ffffff;
+}
+
+#adv-question-display-header {
+	font-size: 17px;
+	font-weight: bold;
+	padding: 3px;
+	padding-left:10px;
+}
+
+.section-instruction-div {
+	padding:5px;
+	border: 1px solid #cbcacc;
+	width: 90%;
+	font-size:13px;
+}
+
+.section-instruction-div>ul {
+    margin-left: 0px;
+    padding-inline-start: 20px;
+}
+
+.section-instruction-div li {
+	line-height: normal;
+	margin: 0 0 5px 0;
+}
+
+.section-instruction-div li li {
+    line-height: normal;
+    margin: 0 0 2px 0;
+}
+
+.marks-desc {
+	width:100px;
+	display:inline-block;
+}
+
+.threshold-alert{
+    border-radius: 5px;
+    animation: blinkingBackground 10s infinite;
+}
+
+@keyframes blinkingBackground{
+    0%    { background-color: #feffb7;}
+    15%   { background-color: #ffea81;}
+    40%   { background-color: #ffd68a;}
+    65%   { background-color: #ffad63;}
+    80%   { background-color: #fd8e86;}
+}

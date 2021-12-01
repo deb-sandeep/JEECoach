@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="sConsoleApp">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Mock Test Analysis</title>
+
+    <link rel="stylesheet" href="/js/lib/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/app/exam.css"/>
+    <link rel="stylesheet" href="/css/pure/tables.css"/>
+    <link rel="stylesheet" href="/css/app/app.css"/>
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ TeX: { extensions: ["mhchem.js"] }});
+    </script>
+    <script type="text/javascript" 
+            src="/js/lib/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full">
+    </script>
+    
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/lib/angular-route.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/lib/dombuilder/DOMBuilder.min.js"></script>
+	<script src="/js/lib/rgraph/RGraph.common.core.js"></script>
+	<script src="/js/lib/rgraph/RGraph.common.dynamic.js"></script>
+	<script src="/js/lib/rgraph/RGraph.common.tooltips.js"></script>
+	<script src="/js/lib/rgraph/RGraph.gantt.js"></script>    
+	
+    <script>
+        DOMBuilder.apply( window, 'dom' ) ;
+    </script>
+
+    <script src="/js/app/ng/app-ng.js"></script>
+    
+    <script src="/views/jeetest/exam_landing/js/common/click_stream_event.js"></script>
+    <script src="/views/jeetest/exam_landing/js/common/filter.js"></script>
+    <script src="/views/jeetest/exam_landing/js/common/rc_options.js"></script>
+
+    <script src="/js/app/ng/jeetest/analysis/rca_cluster.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/directive.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/route.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/filter.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/analysis.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/attempt_time_sequence.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/attempt_details.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/attempt_lap_details.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/available_exams.js"></script>
+    <script src="/js/app/ng/jeetest/analysis/wrong_answer_analysis.js"></script>
+</head>
+
+<body ng-controller="ExamAnalysisController"
+      style="background-color: #FFFFFF;">
+
+<nav class="navbar navbar-inverse navbar-static-top"
+     style="min-height:0px;margin-bottom:0px;">
+    <div class="container" style="width:100%">
+        <div class="row" >
+            <div class="col-sm-7">
+                [ <a href="/jeetest">JEE Exam</a> ] - {{navBarTitle}}
+            </div>
+            <div class="col-sm-5">
+                <!-- Space for controls common to module -->
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="alert alert-danger alert-dismissible" ng-repeat="alert in alerts">
+<a ng-click="dismissAlert( $index )" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+{{alert.msg}}
+</div>
+
+<div ng-view></div>
+
+</body>
+</html>

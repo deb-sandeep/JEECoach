@@ -1,0 +1,76 @@
+<div style="padding: 0px; margin: 10px" align="center">
+	<table class="table table-bordered table-compact"
+		style="width: auto !important;font-size:12px !important;">
+		<thead>
+			<tr class="success">
+			    <th>#</th>
+				<th>ID</th>
+				<th>Type</th>
+                <th>Name</th>
+				<th>Dur (min)</th>
+				<th>#Q</th>
+				<th>Date</th>
+				<th>Score</th>
+				<th>#&check;</th>
+				<th>
+                    <span class="glyphicon glyphicon-remove-circle"
+                          style="color:red;"
+                          ng-click="displayWrongAnswersAnalysis()"></span>
+				</th>
+				<th><span class="stat-icon-small answered"></span></th>
+                <th><span class="stat-icon-small review-answered"></span></th>
+                <th><span class="stat-icon-small review"></span></th>
+                <th><span class="stat-icon-small not-answered"></span></th>
+                <th><span class="stat-icon-small not-visited"></span></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+			</tr>
+		</thead>
+		<tbody>
+	        <tr ng-repeat="attempt in attemptSummaries"
+	            class="test-summary-{{test.examType}}">
+	           <td>{{attemptSummaries.length - $index}}</td>
+	           <td>{{attempt.testConfig.id}}</td>
+	           <td>{{attempt.testConfig.examType}}</td>
+               <td>{{attempt.testConfig.shortName}}</td>
+	           <td style="text-align:right;font-family:Courier;">{{attempt.testConfig.duration*60 | duration}}</td>
+	           <td style="text-align:right;">
+	               {{attempt.testConfig.numPhyQuestions + 
+	                 attempt.testConfig.numChemQuestions + 
+	                 attempt.testConfig.numMathQuestions}}
+	           </td>
+	           <td>{{attempt.dateAttempted | date}}</td>
+	           <td>{{attempt.score}} / {{attempt.testConfig.totalMarks}}</td>
+	           <td style="text-align:right;">{{attempt.numCorrectAnswers}}</td>
+	           <td style="text-align:right;">{{attempt.numWrongAnswers}}</td>
+	           <td style="text-align:right;">{{attempt.numAttempted}}</td>
+               <td style="text-align:right;">{{attempt.numAnsAndMarkedForReview}}</td>
+               <td style="text-align:right;">{{attempt.numMarkedForReview}}</td>
+               <td style="text-align:right;">{{attempt.numNotAnswered}}</td>
+               <td style="text-align:right;">{{attempt.numNotVisited}}</td>
+               <td>
+                    <span class="glyphicon glyphicon-list"
+                          style="color:green;"
+                          ng-click="displayTestAttemptDetails( attempt )"></span>
+               </td>               
+               <td>
+                    <span class="glyphicon glyphicon-object-align-horizontal"
+                          style="color:blue;"
+                          ng-click="displayTestAttemptTimeSequence( attempt )"></span>
+               </td>               
+               <td>
+                    <span class="glyphicon glyphicon-tasks"
+                          style="color:orange;"
+                          ng-click="displayTestAttemptLapDetails( attempt )"></span>
+               </td>               
+               <td>
+                    <span class="glyphicon glyphicon-road"
+                          style="color:red;"
+                          ng-click="cloneTest( attempt.testConfig.id )"></span>
+               </td>               
+	        </tr>
+		</tbody>
+	</table>
+</div>

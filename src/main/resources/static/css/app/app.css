@@ -1,0 +1,329 @@
+/* quicksand-regular - latin */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/quicksand-v9-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Quicksand Regular'), local('Quicksand-Regular'),
+       url('/fonts/quicksand-v9-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/quicksand-v9-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/quicksand-v9-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/quicksand-v9-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/quicksand-v9-latin-regular.svg#Quicksand') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-family: Quicksand;
+    font-size: 14px;
+    background-color: #333333;
+}
+
+a {
+    color: #EEEEEE; 
+}
+
+strong {
+	color: blue;
+}
+
+.header
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+    font-size: 20px;
+    background-color: #222222;
+    height:40px;
+    color: #888888 ;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-body {
+  width: 90%;
+  margin: auto;
+  position:absolute;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;  
+  top:40px;
+  min-height: 400px;
+}
+
+.remote-button-row {
+  width: 100%;
+}
+
+.remote-nav-row {
+  width: 100%;
+  background: #333333 ;
+}
+
+.remote-row-separator {
+  width: 100%;
+  height: 15px;
+}
+
+.button {
+  width: 25%;
+  background: #425062;
+  color: #fff;
+  padding: 20px;
+  display: inline-block;
+  font-size: 25px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: -4px;
+  border-right: solid 2px #3C4857;
+  border-bottom: solid 2px #3C4857;
+}
+
+.button.screenlet {
+    height:75px;
+    line-height:75px;
+    padding:0px;
+    background: #44775E;
+    border-radius:20px;
+    color: #C6C6C6;
+}
+
+.button.screenlet:hover {
+  background: #5B9F7E;
+}
+
+.button.nav {
+    width: 33%;
+    padding:5px;
+    background-color: #333333;
+    border: 0px ;
+    font-size: 40px;
+    border-radius: 50px;
+}
+
+.button.nav-blank {
+    width: 33%;
+    background-color: #333333;
+    border: 0px;
+}
+
+.button.nav:hover {
+  background: #555555;
+}
+
+.button.start-stop {
+    width: 50%; 
+    font-size: 50px;
+    padding: 1px;
+    background-color: #555555;
+    border-radius:50px;
+    border-right: solid 2px #737373;
+    border-bottom: solid 2px #737373;
+}
+
+.button.start-stop:hover {
+  background: #666666;
+}
+
+.button.fn {
+  border-radius:5px;
+  font-size: 17px;
+  height: 75px;
+  padding: 0px ;
+  line-height: 75px ;
+}
+
+.button.fn:hover {
+    background: #657A95;
+}
+
+.button.route {
+    border-radius:5px;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.button.route:hover {
+    background: #657A95;
+}
+
+.ota-req-sent {
+    color: #FF0000;
+}
+
+.ota-idle {
+    color: #E2E2E2; 
+}
+
+.outcome_skip {
+    background-color: #A1DEE3 !important;
+}
+
+.outcome_solved {
+    background-color: #D4EC9E !important;
+}
+
+.outcome_redo {
+    background-color: #DEC3A4 !important;
+}
+
+.outcome_pigeon {
+    background-color: #4AB1B9 !important;
+}
+
+.dirty {
+    background-color: #FACAB5 !important;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.tile {
+    float:left;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin:1.66%;
+    overflow:hidden;
+}
+
+/** following three are for responsive grids */
+.tilecontent {
+    position:absolute;
+    height:100%; /* = 100% - 2*10% padding */
+    width:100%; /* = 100% - 2*5% padding */
+    padding: 5% 5%;
+    text-align:center;
+}
+
+.tiletable{
+    display:table;
+    height:100%;
+    width:100%;
+}
+
+.tiletable-cell{
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:100%;
+    font-size:25px;
+}
+
+nav {
+	font-size:23px;
+	color:#A9A9A9;
+}
+
+.labelcell {
+	background-color: #F5FFFA;
+}
+
+.green {
+    color: #006F07;
+}
+
+.red {
+    color: #FF0000;
+}
+
+.blue {
+    color: #0012FF;
+}
+
+li {
+	line-height : 35px;
+}
+
+.proj-time {
+	width:120px;
+	font-size:20px;
+	padding-left:20px;
+    padding-right:20px;
+    padding-top:15px;
+    padding-bottom:15px;
+    border-radius:20px;
+}
+
+/* ---------------- Class for rendered questions --------------------------*/
+.rendered-question li {
+    padding-left:20px;
+    padding-top:5px;
+    font-size:18px;
+    line-height : 35px;
+}
+
+.option-table-v {
+	width:100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+}
+
+.option-table-v td, .option-table-v th {
+    font-size: 18px;
+    margin: 0px;
+    overflow: visible;
+    padding: 0.25em 0.25em;
+    text-align:left;
+}
+
+.option-table-h {
+    width:100%;
+    border-collapse: collapse;
+    border:1px solid #d0cfd1;
+    border-spacing: 0;
+    empty-cells: show;
+}
+
+.option-table-h td, .option-table-h th {
+	width:25%;
+    font-size: 18px;
+    margin: 0px;
+    overflow: visible;
+    padding: 0.25em 0.25em;
+    border:1px solid #d0cfd1;
+    text-align:left;
+}
+
+.option-table-h th {
+    background:#e8e7ea;
+}
+
+.MathJax_SVG_Display {
+	text-align:left !important;
+	font-size:18px;
+}
+
+.full-width {
+	width:100%;
+}
+
+.lct-context {
+	padding: 10px 10px;
+	border: 1px solid #a0a0a0;
+	margin-bottom: 20px;
+}
+
+.fixed-font {
+	font-family:Courier;
+}
+
+ol[type='A']>li {
+	padding-left:0px;
+}

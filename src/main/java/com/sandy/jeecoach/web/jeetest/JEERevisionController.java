@@ -1,0 +1,19 @@
+package com.sandy.jeecoach.web.jeetest;
+
+import org.springframework.stereotype.* ;
+import org.springframework.web.bind.annotation.* ;
+
+@Controller
+@RequestMapping( "/jeetest/revision" )
+public class JEERevisionController {
+    
+    @RequestMapping( "/problemList" )
+    public String availableExams() {
+        return "jeetest/revision/problem_list" ;
+    }
+
+    @RequestMapping( "/revisionStudy" )
+    public String revisionStudy() {
+        return "jeetest/revision/revision_study" ;
+    }
+}

@@ -1,0 +1,68 @@
+.topic-sel-dlg-row {
+	background-color:#f5f5a0;
+	height:25px;
+}
+
+.topic-dlg-row {
+    background-color:#FFFFFF;
+    height:25px;
+}
+
+.test-config-qsel-heading {
+	padding:5px 10px ;
+	background-color:#d0feff !important;
+}
+
+.test-config-tsel-heading {
+    padding:5px 10px ;
+    background-color:#bcfec1!important;
+}
+
+.test-config-qass-heading {
+    padding:5px 10px ;
+    background-color:#fcfeb3!important;
+}
+
+.test-config-panel-body {
+	padding:5px ;
+}
+
+.question-select {
+	font-family:"Courier New", Courier, monospace ;
+}
+
+.test-summary-MAIN {
+	background-color:#f4f5de;
+}
+
+.test-summary-ADV {
+	background-color:#faf2f1;
+}
+
+.jee-adv-config-summary-table {
+	width: 100%;
+}
+
+.jee-adv-config-summary-table td {
+    padding-left:5px;
+    padding-right:5px;
+    border: solid 1px #feca30;
+    text-align:right;
+}
+
+.jee-adv-config-summary-table th {
+    background-color: #fdeca8;
+    padding-left:5px;
+    padding-right:5px;
+    border: solid 1px #feca30;
+    text-align:right;
+}
+
+.jee-adv-config-summary-table tr:first-child>th {
+    text-align:center;
+}
+
+.topic-sel-dlg-table {
+    width:100%;
+}
+

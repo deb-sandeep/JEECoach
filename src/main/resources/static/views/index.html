@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="sConsoleApp">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SConsole</title>
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/lib/angular-route.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/bootstrap/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="/js/lib/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/app/app.css"/>
+    
+    <script src="/js/app/ng/app-ng.js"></script>
+    <script src="/js/app/ng/remote/controller.js"></script>
+</head>
+
+<body ng-controller="RemoteController">
+
+<div class="header" style="display: table;">
+    <div style="display: table-cell; vertical-align: middle;">
+        <div ng-class="getOTAStatus()">SConsole</div>
+    </div>
+</div>
+
+<div class="page-body">
+  <div class="remote-row-separator"></div>
+  <div class="remote-button-row">
+    <div class="button screenlet" 
+         ng-click="btnPressed('ScreenletSelection', '1')"
+         style="background:#6B7C88">Home</div>
+    <div class="button screenlet" 
+         ng-click="btnPressed('ScreenletSelection', '2')"
+         style="background:#007C00">Phy</div>
+    <div class="button screenlet" 
+         ng-click="btnPressed('ScreenletSelection', '3')"
+         style="background:#7C7C00">Chem</div>
+    <div class="button screenlet" 
+         ng-click="btnPressed('ScreenletSelection', '4')"
+         style="background:#7C0000">Math</div>
+  </div>
+  <!-- 
+  <div class="remote-button-row">
+    <div class="button screenlet" ng-click="btnPressed('ScreenletSelection', '5')">S5</div>
+    <div class="button screenlet" ng-click="btnPressed('ScreenletSelection', '6')">S6</div>
+    <div class="button screenlet" ng-click="btnPressed('ScreenletSelection', '7')">S7</div>
+    <div class="button screenlet" ng-click="btnPressed('ScreenletSelection', '8')">S8</div>
+  </div>
+  -->
+  
+  <div class="remote-row-separator"></div>
+
+  <div ng-include="'views/templates/center_nav_panel.html'"
+       ng-show="keyActivationInfo.CenterPanelCardName == 'NAV_PANEL'">
+  </div>    
+  <div ng-include="'views/templates/center_projection_panel.html'"
+       ng-show="keyActivationInfo.CenterPanelCardName == 'TIME_PROJECTION_PANEL'">
+  </div>    
+
+  <div class="remote-row-separator"></div>
+
+  <div class="remote-button-row">
+    <div class="button start-stop"
+         ng-click="btnPressed('Run', 'PlayPause')"
+         ng-style="{'visibility':keyActivationInfo.PLAYPAUSE == null?'hidden':'visible'}">
+        <span class="glyphicon glyphicon-play"></span>/
+        <span class="glyphicon glyphicon-pause"></span>
+    </div>
+    <div class="button start-stop"
+         ng-click="btnPressed('Run', 'Stop')"
+         ng-style="{'visibility':keyActivationInfo.STOP == null?'hidden':'visible'}">
+        <span class="glyphicon glyphicon-stop"></span>
+    </div>
+  </div>
+
+  <div class="remote-row-separator"></div>
+  <div class="remote-row-separator"></div>
+
+  <div class="remote-button-row">
+    <div class="button fn" style="background-color:#3C979E"
+         ng-click="btnPressed('Function', 'A')"
+         ng-style="{'visibility':keyActivationInfo.FN_A == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_A}}
+    </div>
+    <div class="button fn" style="background-color:#7A9B2E"
+         ng-click="btnPressed('Function', 'B')"
+         ng-style="{'visibility':keyActivationInfo.FN_B == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_B}}
+    </div>
+    <div class="button fn" style="background-color:#B96F1B"
+         ng-click="btnPressed('Function', 'C')"
+         ng-style="{'visibility':keyActivationInfo.FN_C == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_C}}
+    </div>
+    <div class="button fn" style="background-color:#007C85"
+         ng-click="btnPressed('Function', 'D')"
+         ng-style="{'visibility':keyActivationInfo.FN_D == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_D}}
+    </div>
+  </div>
+  <div class="remote-button-row">
+    <div class="button fn" style="background-color:#95ADBE"
+         ng-click="btnPressed('Function', 'E')"
+         ng-style="{'visibility':keyActivationInfo.FN_E == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_E}}
+    </div>
+    <div class="button fn" style="background-color:#BB545F"
+         ng-click="btnPressed('Function', 'F')"
+         ng-style="{'visibility':keyActivationInfo.FN_F == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_F}}
+    </div>
+    <div class="button fn" style="background-color:#428131"
+         ng-click="btnPressed('Function', 'G')"
+         ng-style="{'visibility':keyActivationInfo.FN_G == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_G}}
+    </div>
+    <div class="button fn" style="background-color:#C5852F"
+         ng-click="btnPressed('Function', 'H')"
+         ng-style="{'visibility':keyActivationInfo.FN_H == null?'hidden':'visible'}">
+        {{keyActivationInfo.FN_H}}
+    </div>
+  </div>
+
+  <div class="remote-row-separator"></div>
+  <div class="remote-row-separator"></div>
+  <!-- 
+  <div class="remote-button-row">
+    <div class="button route">Config</div>
+    <div class="button route">-</div>
+    <div class="button route">-</div>
+    <div class="button route">-</div>
+  </div>
+  -->
+</div>
+  
+</body>
+</html>

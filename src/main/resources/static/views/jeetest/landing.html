@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="sConsoleApp">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SConsole</title>
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/lib/angular-route.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/bootstrap/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="/js/lib/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/app/app.css"/>
+    
+    <script src="/js/app/ng/app-ng.js"></script>
+    <script src="/js/app/ng/jeetest/landing/controller.js"></script>
+</head>
+
+<body ng-controller="LandingController">
+<!-- 1st row */ -->
+<div class="tile"
+     style="background-color:#FBEEC1"
+     ng-click="go('/jeetest/qb-management')">
+    <div class="tilecontent">
+        <div class="tiletable">
+	        <div class="tiletable-cell">Question Bank Management</div>
+        </div>
+    </div>
+</div>
+<div class="tile"
+     style="background-color:#FBEEC1"
+     ng-click="go('/jeetest/test-config-main')">
+    <div class="tilecontent">
+        <div class="tiletable">
+            <div class="tiletable-cell">JEE Main Test Configuration</div>
+        </div>
+    </div>
+</div>
+<div class="tile"
+     style="background-color:#FBEEC1"
+     ng-click="go('/jeetest/test-config-adv')">
+    <div class="tilecontent">
+        <div class="tiletable">
+            <div class="tiletable-cell">JEE Adv Test Configuration</div>
+        </div>
+    </div>
+</div>
+<div class="tile"
+     style="background-color:#FBEEC1"
+     ng-click="go('/jeetest/exam-landing')">
+    <div class="tilecontent">
+        <div class="tiletable">
+            <div class="tiletable-cell">Exam</div>
+        </div>
+    </div>
+</div>
+<div class="tile"
+     style="background-color:#FBEEC1"
+     ng-click="go('/jeetest/analysis')">
+    <div class="tilecontent">
+        <div class="tiletable">
+            <div class="tiletable-cell">Analysis</div>
+        </div>
+    </div>
+</div>
+<div class="tile"
+     style="background-color:#D9EFF9"
+     ng-click="go('/jeetest/revision')">
+    <div class="tilecontent">
+        <div class="tiletable">
+            <div class="tiletable-cell">Revision</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

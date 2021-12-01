@@ -1,0 +1,32 @@
+<div class="panel panel-default" style="padding:0px; margin:0px" align="center">
+  <div class="panel-body" style="padding:5px">
+    <div>
+      <div align="center">
+          <button type="button" class="btn btn-info btn-sm"
+                  ng-click="renderPhyInsights()">
+              Physics
+          </button>
+          <button type="button" class="btn btn-info btn-sm"
+                  ng-click="renderChemInsights()">
+              Chemistry
+          </button>
+          <button type="button" class="btn btn-info btn-sm"
+                  ng-click="renderMathsInsights()">
+              Maths
+          </button>
+      </div>
+    </div>
+	<div>
+	    <canvas id="subject_insight_graph" width="700" height="120">
+	        [No canvas support]
+	    </canvas>
+	</div>
+	<hr>
+	<div>
+	   <h3>{{topicGraphTitle}}</h3>
+       <canvas id="topic_insight_graph" width="900" height="600">
+           [No canvas support]
+       </canvas>
+	</div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<table align="center" class="pure-table pure-table-horizontal lap-detail-table"
+       style="font-size:12px;">
+  <thead>
+      <tr>
+          <th colspan="7" style="text-align:left;">Lap name</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName">
+              {{lapName}}
+          </th>
+          <th colspan="4" rowspan="2">
+	        <button class="btn btn-info btn-sm"
+	                ng-click="refreshData()">
+	            <span class="glyphicon glyphicon-refresh"></span>
+	        </button>
+          </th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Lap times</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName"
+              style="font-family:Courier New;">
+              {{lapTimes[lapName] | duration}}
+          </th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Lap times (visible rows)</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName"
+              style="font-family:Courier New;">
+              {{getTimeSpentForVisibleQuestions( lapName ) | duration}}
+          </th>
+          <th colspan="4" rowspan="2" style="font-size:20px">{{totalScore}} / {{totalMarks}}</th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Num questions answered</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName">
+              {{lapAttempts[lapName]}}
+          </th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Num partial</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName">
+              {{lapPartials[lapName]}}
+          </th>
+          <th colspan="4"></th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Num wrong</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName">
+              {{lapAttempts[lapName] - lapCorrects[lapName] - lapPartials[lapName]}}
+          </th>
+          <th>{{numAbandoned}}</th>
+          <th colspan="3"></th>
+      </tr>
+      <tr>
+          <th colspan="7" style="text-align:left;">Average time per questiom</th>
+          <th colspan="2"
+              ng-repeat="lapName in lapNames"
+              ng-class="'lap-detail-cell-bg-' + lapName"
+              style="font-family:Courier New;">
+              {{lapAvgQTime[lapName] | mmss}}
+          </th>
+          <th colspan="4"></th>
+      </tr>
+      <tr>
+          <th>Subject</th>
+          <th></th>
+          <th>Q</th>
+          <th></th>
+          <th>Lap</th>
+          <th>Time</th>
+          <th width="2px"></th>
+          <th ng-repeat="x in [].constructor(lapNames.length*2) track by $index"
+              ng-class="getLapSubHeaderClass($index)"
+              width="50px">
+              {{getLapSubHeader($index)}}
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>RC</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr ng-repeat="qaDetail in qaDetails"
+          ng-show="determineVisibility( qaDetail )">
+          
+         <td>{{qaDetail.question.subject.name.substring( 5 )}}</td>
+         <td>{{qaDetail.question.questionType}}</td>
+         <td>Q {{$index + 1}}</td>
+         <td>
+            <span class="glyphicon glyphicon-eye-open"
+                  ng-click="showQuestion( $index )"
+                  style="color:#A0A0A0;">
+            </span>
+         </td>
+         <td ng-class="'lap-detail-cell-bg-' + qaDetail.answeredInLap">
+              {{qaDetail.answeredInLap}}
+         </td>
+         <td ng-class="attemptDetailTimeHighlight(qaDetail.totalTimeSpent)"
+             style="text-align:right;font-family:Courier;">
+              {{qaDetail.totalTimeSpent | mmss}}
+         </td>
+         <td></td>
+         <td ng-repeat="x in [].constructor(lapNames.length*2) track by $index"
+             ng-class="getLapDetailCellClass( qaDetail, $index )">
+              {{getLapDetail( qaDetail, $index, true )}}
+         </td>
+         <td>Q {{$index + 1}}</td>
+         <td>
+            <span class="glyphicon glyphicon-eye-open"
+                  ng-click="showQuestion( $index )"
+                  style="color:#A0A0A0;">
+            </span>
+         </td>
+         <td>
+	        <span ng-if="qaDetail.attempt.partialCorrect"  
+	              class="glyphicon glyphicon-ok"
+	              style="color:orange;"
+	              ng-click="showAwardGraceDialog( $index )"></span>
+            <span ng-if="qaDetail.attempt.isCorrect && !qaDetail.attempt.partialCorrect"  
+                  class="glyphicon glyphicon-ok"
+                  style="color:green;"></span>
+            <span ng-if="!qaDetail.attempt.isCorrect && qaDetail.attempt.attemptStatus == 'q-attempted'" 
+                  class="glyphicon glyphicon-remove"
+                  style="color:red;"
+                  ng-click="showAwardGraceDialog( $index )"></span>
+            <span ng-if="!qaDetail.attempt.isCorrect && qaDetail.attempt.attemptStatus != 'q-attempted'" 
+                  class="glyphicon glyphicon-remove"
+                  style="color:blue;"
+                  ng-click="showAwardGraceDialog( $index )"></span>
+            </span>
+         </td>
+         <td>
+             <span ng-show="!qaDetail.attempt.isCorrect || qaDetail.attempt.partialCorrect"
+                   class="glyphicon glyphicon-tags"
+                   ng-click="showRootCauseDialog( $index )">
+             </span>&nbsp;
+             {{qaDetail.attempt.rootCause}}
+         </td>
+      </tr>        
+  </tbody>
+</table>
