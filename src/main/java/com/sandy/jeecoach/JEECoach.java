@@ -22,10 +22,10 @@ public class JEECoach
     private static final Logger log = Logger.getLogger( JEECoach.class ) ;
     
     public static File JEETEST_IMG_DIR = new File( System.getProperty( "user.home" ),
-                                                  "projects/workspace/sconsole/jeetest/images" ) ;
+                                                  "projects/workspace/jeecoach/jeetest/images" ) ;
 
     public static File JEETEST_EFFGRAPH_IMG_DIR = new File( System.getProperty( "user.home" ),
-                                                  "projects/workspace/sconsole/jeetest/effgraphs" ) ;
+                                                  "projects/workspace/jeecoach/jeetest/effgraphs" ) ;
 
     public static File MATHJAX_DIR = new File( "/var/www/lib-ext/MathJax" ) ;
 
