@@ -93,16 +93,6 @@ public class TestConfiguration implements Cloneable {
         return totalMarks ;
     }
     
-    public int getProjectedSolveTime() {
-        
-        int projectedSolveTime = 0 ;
-        List<TestQuestion> questions = getAllQuestions() ;
-        for( TestQuestion q : questions ) {
-            projectedSolveTime += q.getProjectedSolveTime() ;
-        }
-        return projectedSolveTime ;
-    }
-    
     public Integer getId() {
         return id ;
     }

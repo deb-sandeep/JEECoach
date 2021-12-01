@@ -25,7 +25,6 @@ public class TestConfigIndex {
     private Integer totalMarks = 0 ;
     
     // Note that duration is in seconds.
-    private Integer projectedSolveTime = 0 ;
     private Integer duration = 0 ;
     private boolean synched = false ;
     
@@ -75,13 +74,6 @@ public class TestConfigIndex {
     }
     public void setTotalMarks( Integer totalMarks ) {
         this.totalMarks = totalMarks ;
-    }
-    
-    public Integer getProjectedSolveTime() {
-        return projectedSolveTime ;
-    }
-    public void setProjectedSolveTime( Integer projectedSolveTime ) {
-        this.projectedSolveTime = projectedSolveTime ;
     }
     
     public Integer getDuration() {

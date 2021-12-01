@@ -34,8 +34,6 @@ public class TestQuestion {
     private String    targetExam           = "MAIN" ;
     private String    questionType         = "SCA" ;
     private String    questionRef          = null ;
-    private Integer   lateralThinkingLevel = 2 ;
-    private Integer   projectedSolveTime   = 120 ;
     private String    questionText         = null ;
     private String    lctContext           = null ;
     private String    questionFormattedText= null ;
@@ -107,22 +105,6 @@ public class TestQuestion {
     
     public void setQuestionRef( String questionRef ) {
         this.questionRef = questionRef ;
-    }
-    
-    public Integer getLateralThinkingLevel() {
-        return lateralThinkingLevel ;
-    }
-    
-    public void setLateralThinkingLevel( Integer lateralThinkingLevel ) {
-        this.lateralThinkingLevel = lateralThinkingLevel ;
-    }
-    
-    public Integer getProjectedSolveTime() {
-        return projectedSolveTime ;
-    }
-    
-    public void setProjectedSolveTime( Integer projectedSolveTime ) {
-        this.projectedSolveTime = projectedSolveTime ;
     }
     
     public String getQuestionText() {

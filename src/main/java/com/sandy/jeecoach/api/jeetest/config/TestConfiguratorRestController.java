@@ -365,7 +365,6 @@ public class TestConfiguratorRestController {
         ci.setNumMathQuestions( config.getMathQuestions().size() ) ;
         ci.setTotalMarks( config.getTotalMarks() );
         ci.setDuration( config.getDuration() ) ;
-        ci.setProjectedSolveTime( config.getProjectedSolveTime() ) ;
         ci.setLastUpdateDate( new Timestamp( System.currentTimeMillis() ) ) ;
         
         if( JEECoachUtil.isOperatingOnPiMon() ) {
