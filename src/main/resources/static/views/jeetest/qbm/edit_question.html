@@ -101,27 +101,6 @@
             </tr>
             <!-- Sixth row -->
             <tr>
-                <td class="labelcell"><label for="lat_level">Lat level</label></td>
-                <td>:</td>
-                <td colspan="4">
-                 <select id="lat_level" 
-                         class="form-control"  
-                         ng-model="question.lateralThinkingLevel"
-                         ng-options="item for item in $parent.qbmMasterData.lateralLevel">
-                 </select>
-                </td>
-                <td class="labelcell"><label for="time">Time</label></td>
-                <td>:</td>
-                <td>
-                 <select id="time" 
-                         class="form-control"  
-                         ng-model="question.projectedSolveTime"
-                         ng-options="item for item in $parent.qbmMasterData.approxSolveTime">
-                 </select>
-                </td>
-            </tr>
-            <!-- Seventh row -->
-            <tr>
                 <td class="labelcell"><label for="answer">Body</label></td>
                 <td>:</td>
                 <td colspan="7">
@@ -140,7 +119,7 @@
                      </button>
                 </td>
             </tr>
-            <!-- Eighth row -->
+            <!-- Seventh row -->
             <tr>
                 <td colspan="9">
                     <textarea id="questionText"

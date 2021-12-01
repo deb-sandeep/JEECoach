@@ -86,8 +86,6 @@
 							      <th width="150px">QRef</th>
 							      <th width="100px">QType</th>
 							      <th width="100px">Ans</th>
-                                  <th width="75px">Lat</th>
-                                  <th width="100px">Time</th>
                                   <th></th>
 							    </tr>
 							  </thead>
@@ -127,18 +125,6 @@
                                            ng-blur="answerEntered( entry )"
                                            style="width:100%"
                                            tabindex={{$index+1}}/>
-                                  </td>
-                                  <td>
-					                 <select class="form-control"  
-					                         ng-model="entry.latLevel"
-					                         ng-options="item for item in $parent.qbmMasterData.lateralLevel">
-					                 </select>
-                                  </td>
-                                  <td>
-					                 <select class="form-control"  
-					                         ng-model="entry.projTime"
-					                         ng-options="item for item in $parent.qbmMasterData.approxSolveTime">
-					                 </select>
                                   </td>
                                   <td>
                                     <span class="glyphicon glyphicon-save"
