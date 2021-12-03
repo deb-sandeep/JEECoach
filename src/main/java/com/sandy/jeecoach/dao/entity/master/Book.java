@@ -1,7 +1,9 @@
 package com.sandy.jeecoach.dao.entity.master;
 
 import javax.persistence.* ;
+import lombok.Data ;
 
+@Data
 @Entity
 @Table( name = "book_master" )
 public class Book {
@@ -19,39 +21,7 @@ public class Book {
     private boolean forProblems ;
     private String authorNames ;
     
-    public Integer getId() { return id ; }
-    public void setId( Integer id ) { this.id = id ; }
-    
-    public Subject getSubject() { return subject ; }
-    public void setSubject( Subject subject ) { this.subject = subject ; }
-    
-    public String getBookName() { return bookName ; }
-    public void setBookName( String bookName ) { this.bookName = bookName ; }
-    
-    public String getAuthorNames() { return authorNames ; }
-    public void setAuthorNames( String authorNames ) { 
-        this.authorNames = authorNames ; 
-    }
-    
-    public String getBookShortName() { return bookShortName ; }
-    public void setBookShortName( String bookShortName ) {
-        this.bookShortName = bookShortName ;
-    }
-    
-    public boolean isForProblems() { return forProblems ; }
-    public void setForProblems( boolean forProblems ) {
-        this.forProblems = forProblems ;
-    }
-    
     public String toString() {
         return subject.getName() + " / " + bookShortName ;
-    }
-
-    @Override
-    public boolean equals( Object obj ) {
-        if( obj instanceof Book ) {
-            return ((Book)obj).id.equals( id ) ;
-        }
-        return false ;
     }
 }

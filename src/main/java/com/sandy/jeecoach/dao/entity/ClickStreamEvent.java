@@ -8,6 +8,9 @@ import javax.persistence.GenerationType ;
 import javax.persistence.Id ;
 import javax.persistence.Table ;
 
+import lombok.Data ;
+
+@Data
 @Entity
 @Table( name = "click_stream_event" )
 public class ClickStreamEvent {
@@ -21,46 +24,4 @@ public class ClickStreamEvent {
     private String payload = null ;
     private Integer timeMarker = null ;
     private Timestamp creationTimestamp = null ;
-
-    public Integer getId() {
-        return id ;
-    }
-    public void setId( Integer id ) {
-        this.id = id ;
-    }
-    
-    public Integer getTestAttemptId() {
-        return testAttemptId ;
-    }
-    public void setTestAttemptId( Integer testAttemptId ) {
-        this.testAttemptId = testAttemptId ;
-    }
-    
-    public String getEventId() {
-        return eventId ;
-    }
-    public void setEventId( String eventId ) {
-        this.eventId = eventId ;
-    }
-    
-    public String getPayload() {
-        return payload ;
-    }
-    public void setPayload( String payload ) {
-        this.payload = payload ;
-    }
-    
-    public Integer getTimeMarker() {
-        return timeMarker ;
-    }
-    public void setTimeMarker( Integer timeMarker ) {
-        this.timeMarker = timeMarker ;
-    }
-    
-    public Timestamp getCreationTimestamp() {
-        return creationTimestamp ;
-    }
-    public void setCreationTimestamp( Timestamp creationTimestamp ) {
-        this.creationTimestamp = creationTimestamp ;
-    }
 }
