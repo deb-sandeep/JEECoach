@@ -48,7 +48,8 @@ public interface TestQuestionRepository
     List<TestQuestion> findUnsynched() ;
 
     @Query( nativeQuery=true,
-            value = "select "
+            value = 
+              "select "
             + "    tm.id as topicId, "
             + "    tm.subject_name as subjectName, "
             + "    tm.topic_name as topicName, "
@@ -65,6 +66,8 @@ public interface TestQuestionRepository
             + "      on "
             + "            tm.id = tqb.topic_id and "
             + "            mqm.id = tqb.question_id "
+            + "where "
+            + "    tm.active = 1 "
             + "group by "
             + "    tm.topic_name, "
             + "    mqm.question_type "

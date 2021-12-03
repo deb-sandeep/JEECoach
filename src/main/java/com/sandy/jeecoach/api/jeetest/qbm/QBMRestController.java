@@ -83,7 +83,7 @@ public class QBMRestController {
         try {
             QBMMasterData qbmMaster = new QBMMasterData() ;
             
-            for( Topic topic : topicRepo.findAll() ) {
+            for( Topic topic : topicRepo.findActiveTopics() ) {
                 qbmMaster.addTopic( topic ) ;
             }
             
