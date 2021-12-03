@@ -26,7 +26,7 @@ public class QBMMasterData {
     public static String[]  targetExams     = { EXAM_TYPE_MAIN, EXAM_TYPE_ADV } ;
     public static String[]  questionTypes   = { Q_TYPE_SCA, Q_TYPE_MCA, Q_TYPE_NT, Q_TYPE_LCT, Q_TYPE_MMT } ;
     public static String[]  subjectNames    = { S_TYPE_PHY, S_TYPE_CHEM, S_TYPE_MATHS } ;
-    public static Integer[] lateralLevel    = { 1, 2, 3, 4, 5 } ;
+    public static Integer[] difficultyLevel = { 1, 2, 3, 4, 5 } ;
     public static Integer[] approxSolveTime = { 15, 30, 60, 90, 120, 180, 240, 300, 600 } ; 
 
     private Map<String, List<Topic>> topics = new HashMap<>() ;
@@ -78,8 +78,8 @@ public class QBMMasterData {
         bookList.add( book ) ;
     }
     
-    public Integer[] getLateralLevel() {
-        return lateralLevel ;
+    public Integer[] getDifficultyLevel() {
+        return difficultyLevel ;
     }
     
     public Integer[] getApproxSolveTime() {

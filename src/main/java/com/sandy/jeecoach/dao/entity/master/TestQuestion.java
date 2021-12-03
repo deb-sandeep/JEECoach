@@ -38,6 +38,7 @@ public class TestQuestion {
     private String    lctContext           = null ;
     private String    questionFormattedText= null ;
     private String    answerText           = null ;
+    private Integer   difficultyLevel      = 1 ;
     private Boolean   synched              = Boolean.FALSE ;
     private Boolean   attempted            = Boolean.FALSE ;
     private Timestamp creationTime         = null ;
@@ -115,6 +116,14 @@ public class TestQuestion {
         this.questionText = questionText ;
     }
     
+    public Integer getDifficultyLevel() {
+        return difficultyLevel ;
+    }
+
+    public void setDifficultyLevel( Integer difficultyLevel ) {
+        this.difficultyLevel = difficultyLevel ;
+    }
+
     public String getLctContext() {
         return lctContext ;
     }

@@ -101,6 +101,22 @@
             </tr>
             <!-- Sixth row -->
             <tr>
+                <td class="labelcell"><label for="lat_level">Lat level</label></td>
+                <td>:</td>
+                <td colspan="4">
+                 <select id="lat_level" 
+                         class="form-control"  
+                         ng-model="question.difficultyLevel"
+                         ng-options="item for item in $parent.qbmMasterData.difficultyLevel">
+                 </select>
+                </td>
+                <td class="labelcell"><label for="time"></label></td>
+                <td></td>
+                <td>
+                </td>
+            </tr>
+            <!-- Sixth row -->
+            <tr>
                 <td class="labelcell"><label for="answer">Body</label></td>
                 <td>:</td>
                 <td colspan="7">

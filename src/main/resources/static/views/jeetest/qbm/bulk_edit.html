@@ -86,6 +86,7 @@
 							      <th width="150px">QRef</th>
 							      <th width="100px">QType</th>
 							      <th width="100px">Ans</th>
+                                  <th width="75px">Diff</th>
                                   <th></th>
 							    </tr>
 							  </thead>
@@ -125,6 +126,12 @@
                                            ng-blur="answerEntered( entry )"
                                            style="width:100%"
                                            tabindex={{$index+1}}/>
+                                  </td>
+                                  <td>
+                                     <select class="form-control"  
+                                             ng-model="entry.latLevel"
+                                             ng-options="item for item in $parent.qbmMasterData.difficultyLevel">
+                                     </select>
                                   </td>
                                   <td>
                                     <span class="glyphicon glyphicon-save"
@@ -186,8 +193,8 @@
 			                                  ng-click="showMMTEditor( entry )">
 			                            </span>
 			                        </th>
-					                <th width="33%">Lateral level : <strong>{{entry.latLevel}}</strong></th>
-                                    <th width="33%">Proj Time : <strong>{{entry.projTime}}</strong></th>
+					                <th width="33%">Difficulty level : <strong>{{entry.difficultyLevel}}</strong></th>
+                                    <th width="33%">&nbsp;</th>
 					            </tr>
 					            <tr ng-show="entry.showMMTOptionsEditor">
 					               <td colspan="3">

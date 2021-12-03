@@ -52,6 +52,7 @@ public class TestQuestionEx extends TestQuestion {
         setQuestionText          ( tq.getQuestionText()          ) ;
         setQuestionFormattedText ( tq.getQuestionFormattedText() ) ;
         setAnswerText            ( tq.getAnswerText()            ) ;
+        setDifficultyLevel       ( tq.getDifficultyLevel()       ) ;
         
         populateAttachments( getQuestionText() ) ;
         if( StringUtil.isNotEmptyOrNull( getLctContext() ) ) {
@@ -107,5 +108,6 @@ public class TestQuestionEx extends TestQuestion {
         tq.setQuestionText          ( this.getQuestionText()          ) ;
         tq.setQuestionFormattedText ( this.getQuestionFormattedText() ) ;
         tq.setAnswerText            ( this.getAnswerText()            ) ;
+        tq.setDifficultyLevel       ( this.getDifficultyLevel()       ) ;
     }
 }
