@@ -51,7 +51,6 @@
                               class="glyphicon glyphicon-remove"
                               style="color:red;"            
                               ng-click="showAwardGraceDialog( $index )"></span>
-                        </span>
                    </td>
                    <td>{{questionAttempts[$index].score}}</td>
                    <td>
@@ -120,7 +119,7 @@
       </div>
       <div class="modal-body" style="background-color:#FEFEFE;padding:5px">
         <div style='overflow:auto;height:300px;'>
-	        <table width="100%" class="pure-table pure-table-horizontal"
+	        <table style="width:100%" class="pure-table pure-table-horizontal"
 	               ng-show="selectedQuestion != null">
 	            <tr>
 	                <td>Question Number</td>
@@ -187,7 +186,7 @@
       </div>
       <div class="modal-body" style="background-color:#FEFEFE;padding:5px">
         <div style='overflow:auto;height:300px;'>
-            <table width="100%" class="pure-table pure-table-horizontal"
+            <table style="width:100%" class="pure-table pure-table-horizontal"
                    ng-show="selectedQuestion != null">
                 <tr>
                     <td>Question Number</td>
