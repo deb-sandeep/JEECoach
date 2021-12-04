@@ -249,7 +249,7 @@ public class BulkQuestionEntryHelper {
     //    <Sub>_Q_[Section]*_[<LCT>]_<QID>(Part).png
     //
     //    Sub : Phy | Chem | Math
-    //    Section : [A-Z0-9]+_ // No LCT
+    //    Section : [A-Z0-9_]+_ // No LCT
     //    LCT : LCT_[QID]
     //    QID : INT_ID.DEC_ID
     //    Part : [0-9]

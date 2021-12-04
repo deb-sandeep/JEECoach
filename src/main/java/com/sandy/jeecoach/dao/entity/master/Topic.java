@@ -26,8 +26,7 @@ public class Topic {
     @JoinColumn( name="subject_name" )
     private Subject subject ;
     
-    @Column( name = "class" )
-    private String clazz ;
+    private String std ;
     
     private String section ;
 
@@ -37,7 +36,7 @@ public class Topic {
     public String toString() {
         return id + " / " + 
                subject.getName() + " / " +
-               "Class-" + clazz + " / " + 
+               "Std-" + std + " / " + 
                topicName ;
     }
 }

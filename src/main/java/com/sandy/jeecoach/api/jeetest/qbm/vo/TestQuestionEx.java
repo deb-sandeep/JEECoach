@@ -9,8 +9,8 @@ import org.apache.commons.io.FileUtils ;
 
 import com.sandy.common.util.StringUtil ;
 import com.sandy.jeecoach.JEECoach ;
+import com.sandy.jeecoach.api.jeetest.qbm.formatter.QuestionTextFormatter ;
 import com.sandy.jeecoach.dao.entity.master.TestQuestion ;
-import com.sandy.jeecoach.util.QuestionTextFormatter ;
 
 public class TestQuestionEx extends TestQuestion {
     

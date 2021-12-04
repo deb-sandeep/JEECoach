@@ -1,10 +1,12 @@
-package com.sandy.jeecoach.util;
+package com.sandy.jeecoach.api.jeetest.qbm.formatter;
 
 import java.io.BufferedReader ;
 import java.io.StringReader ;
 import java.util.ArrayList ;
 
 import org.apache.log4j.Logger ;
+
+import com.sandy.jeecoach.core.util.StringUtil ;
 
 public class OptTagProcessor {
 

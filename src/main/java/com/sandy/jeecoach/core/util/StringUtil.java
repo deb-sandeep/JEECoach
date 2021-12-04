@@ -1,4 +1,4 @@
-package com.sandy.jeecoach.util ;
+package com.sandy.jeecoach.core.util ;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;

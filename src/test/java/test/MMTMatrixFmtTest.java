@@ -1,6 +1,6 @@
 package test;
 
-import com.sandy.jeecoach.util.QuestionTextFormatter ;
+import com.sandy.jeecoach.api.jeetest.qbm.formatter.QuestionTextFormatter ;
 
 public class MMTMatrixFmtTest {
 

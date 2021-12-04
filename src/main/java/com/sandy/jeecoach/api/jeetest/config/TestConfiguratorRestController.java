@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody ;
 import org.springframework.web.bind.annotation.RestController ;
 
 import com.sandy.jeecoach.api.jeetest.qbm.vo.QBMMasterData ;
+import com.sandy.jeecoach.core.api.ResponseMsg ;
 import com.sandy.jeecoach.core.util.JEECoachUtil ;
 import com.sandy.jeecoach.dao.entity.TestConfigIndex ;
 import com.sandy.jeecoach.dao.entity.TestQuestionBinding ;
@@ -26,7 +27,6 @@ import com.sandy.jeecoach.dao.entity.master.Topic ;
 import com.sandy.jeecoach.dao.repository.TestConfigIndexRepository ;
 import com.sandy.jeecoach.dao.repository.TestQuestionBindingRepository ;
 import com.sandy.jeecoach.dao.repository.master.TestQuestionRepository ;
-import com.sandy.jeecoach.util.ResponseMsg ;
 
 @RestController
 public class TestConfiguratorRestController {

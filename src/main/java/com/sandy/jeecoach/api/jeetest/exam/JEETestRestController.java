@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController ;
 
 import com.sandy.common.util.StringUtil ;
 import com.sandy.jeecoach.core.JEECoachConfig ;
+import com.sandy.jeecoach.core.api.ResponseMsg ;
 import com.sandy.jeecoach.dao.entity.ClickStreamEvent ;
 import com.sandy.jeecoach.dao.entity.TestAttempt ;
 import com.sandy.jeecoach.dao.entity.TestAttemptLapSnapshot ;
@@ -36,7 +37,6 @@ import com.sandy.jeecoach.dao.repository.TestQuestionBindingRepository ;
 import com.sandy.jeecoach.dao.repository.TestQuestionAttemptRepository.IncorrectTestAnswerRC ;
 import com.sandy.jeecoach.dao.repository.TestQuestionBindingRepository.TopicTestQuestionCount ;
 import com.sandy.jeecoach.dao.repository.master.TestQuestionRepository ;
-import com.sandy.jeecoach.util.ResponseMsg ;
 
 @RestController
 public class JEETestRestController {

@@ -28,11 +28,13 @@ import org.springframework.web.bind.annotation.RestController ;
 
 import com.sandy.common.util.StringUtil ;
 import com.sandy.jeecoach.JEECoach ;
+import com.sandy.jeecoach.api.jeetest.qbm.formatter.QuestionTextFormatter ;
 import com.sandy.jeecoach.api.jeetest.qbm.helper.TestQuestionSearchEngine ;
 import com.sandy.jeecoach.api.jeetest.qbm.helper.TestQuestionSynchronizer ;
 import com.sandy.jeecoach.api.jeetest.qbm.vo.QBMMasterData ;
 import com.sandy.jeecoach.api.jeetest.qbm.vo.QBTopicInsight ;
 import com.sandy.jeecoach.api.jeetest.qbm.vo.TestQuestionEx ;
+import com.sandy.jeecoach.core.api.ResponseMsg ;
 import com.sandy.jeecoach.core.util.JEECoachUtil ;
 import com.sandy.jeecoach.dao.entity.master.Book ;
 import com.sandy.jeecoach.dao.entity.master.TestQuestion ;
@@ -41,8 +43,6 @@ import com.sandy.jeecoach.dao.repository.TestQuestionBindingRepository ;
 import com.sandy.jeecoach.dao.repository.master.BookRepository ;
 import com.sandy.jeecoach.dao.repository.master.TestQuestionRepository ;
 import com.sandy.jeecoach.dao.repository.master.TopicRepository ;
-import com.sandy.jeecoach.util.QuestionTextFormatter ;
-import com.sandy.jeecoach.util.ResponseMsg ;
 
 @RestController
 public class QBMRestController {
