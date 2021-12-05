@@ -18,6 +18,8 @@ public class Book {
     
     private String bookName ;
     private String bookShortName ;
+    private String symbol ;
+    private String repoDirName ;
     private boolean forProblems ;
     private String authorNames ;
     

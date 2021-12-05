@@ -33,6 +33,9 @@ public class Topic {
     @Column( name = "topic_name" )
     private String topicName ;
     
+    @Column( name = "jee_topic_mapping" ) 
+    private String jeeTopicMapping ;
+    
     public String toString() {
         return id + " / " + 
                subject.getName() + " / " +
