@@ -42,14 +42,15 @@ public class TopicFolderCreatorApp {
     private void makeLocalImageCacheFolders( TopicMeta meta ) 
         throws Exception {
         
-        File subDir = new File( CACHE_DIR, meta.getSubject() ) ;
-        File stdDir = new File( subDir, "Std-" + meta.getStd() ) ;
+        File subDir  = new File( CACHE_DIR, meta.getSubject() ) ;
+        File stdDir  = new File( subDir, "Std-" + meta.getStd() ) ;
+        File bookDir = new File( stdDir, meta.getBookName() ) ;
         
         String topicDirName = String.format( 
                                     "%02d - " + meta.getTopicName(), 
                                     meta.getTopicNum() ) ;
         
-        File topicDir = new File( stdDir, topicDirName ) ;
+        File topicDir = new File( bookDir, topicDirName ) ;
         
         if( !topicDir.exists() ) {
             topicDir.mkdirs() ;
@@ -62,13 +63,14 @@ public class TopicFolderCreatorApp {
         StringBuilder sb = new StringBuilder() ;
         
         sb.append( "INSERT INTO jee_coach.topic_master" )
-          .append( "(active, subject_name, std, section, topic_name, jee_topic_mapping)" )
+          .append( "(active, subject_name, std, section, book_name, topic_name, jee_topic_mapping)" )
           .append( "VALUES" )
           .append( "(" )
           .append( "0," )
           .append( "\"" + meta.getSubject() + "\"," )
           .append( "\"" + meta.getStd() + "\"," )
           .append( "\"" + meta.getSection() + "\"," )
+          .append( "\"" + meta.getBookName() + "\"," )
           .append( "\"" + meta.getTopicName() + "\"," ) 
           .append( "\"" + meta.getJeeTopicMapping() + "\");" ) ;
         

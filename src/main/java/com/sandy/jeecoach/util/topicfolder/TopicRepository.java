@@ -40,7 +40,7 @@ public class TopicRepository {
     
     private void loadRepository( File file ) throws Exception {
         XLSWrapper xls = new XLSWrapper( file ) ;
-        List<XLSRow> rows = xls.getRows( 0, 0, 5 ) ;
+        List<XLSRow> rows = xls.getRows( 0, 0, 6 ) ;
         for( XLSRow row : rows ) {
             TopicMeta meta = buildMeta( row ) ;
             classifyMeta( meta ) ;
@@ -53,6 +53,7 @@ public class TopicRepository {
         meta.setStd( row.getCellValue( "Standard" ) ) ;
         meta.setSubject( row.getCellValue( "Subject" ) ) ;
         meta.setSection( row.getCellValue( "Section" ) ) ;
+        meta.setBookName( row.getCellValue( "BookName" ) ) ;
         meta.setTopicNum( Integer.parseInt( row.getCellValue( "TopicNo" ) ) ) ;
         meta.setTopicName( row.getCellValue( "TopicName" ) ) ;
         meta.setJeeTopicMapping( row.getCellValue( "JEE Topic Mapping" ) ) ;

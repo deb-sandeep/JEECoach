@@ -8,6 +8,7 @@ public class TopicMeta {
     private String std = null ;
     private String subject = null ;
     private String section = null ;
+    private String bookName = null ;
     private int topicNum = 0 ;
     private String topicName = null ;
     private String jeeTopicMapping = null ;
