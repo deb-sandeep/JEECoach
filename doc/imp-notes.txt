@@ -23,9 +23,13 @@ Kill the one which is run via the shell
 4. Adding new questions 
 INSERT INTO `sconsole`.`problem_master` (`topic_id`, `book_id`, `chapter_id`, `exercise_name`, `problem_tag` ) VALUES (174, 119, 7, 'CAE-10', '1');  
 
+Truncating all the test data
+-----------------------------
+delete from click_stream_event ;
+delete from test_question_master ;
+delete from test_question_binding ;
+delete from test_question_attempt ;
+delete from test_config_index ;
+delete from test_attempt_lap_snapshot ;
+delete from test_attempt ;
 
-Change to DB
----------------
-ALTER TABLE `sconsole`.`problem_attempt` 
-CHANGE COLUMN `end_time` `end_time` TIMESTAMP NULL ,
-ADD COLUMN `projected_duration` INT NOT NULL DEFAULT '-1' AFTER `duration`;
