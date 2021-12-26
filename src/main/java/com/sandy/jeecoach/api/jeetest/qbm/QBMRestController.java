@@ -4,9 +4,13 @@ import java.io.File ;
 import java.math.BigDecimal ;
 import java.math.BigInteger ;
 import java.net.InetAddress ;
+import java.net.NetworkInterface ;
+import java.net.SocketException ;
 import java.sql.Timestamp ;
 import java.util.ArrayList ;
 import java.util.Arrays ;
+import java.util.Collections ;
+import java.util.Enumeration ;
 import java.util.HashMap ;
 import java.util.LinkedHashMap ;
 import java.util.List ;
@@ -49,7 +53,10 @@ public class QBMRestController {
     
     static final Logger log = Logger.getLogger( QBMRestController.class ) ;
     
-    private static final String SERVER_HOST = "192.168.0.117:8080" ;
+    private static final String SERVER_IP = "192.168.0.101" ;
+    private static final String SERVER_PORT = "8080" ;
+    
+    private static final String SERVER_HOST = SERVER_IP + ":" + SERVER_PORT ;
     
     @Autowired
     private TopicRepository topicRepo = null ;
@@ -324,9 +331,7 @@ public class QBMRestController {
     public ResponseEntity<ResponseMsg> syncQuestions ( @RequestBody Integer[] ids ) {
         
         try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            String ipAddress = inetAddress.getHostAddress() ;
-            if( ipAddress.equals( "192.168.0.117" ) ) {
+            if( isExecutingOnServer() ) {
                 return ResponseEntity.status( HttpStatus.BAD_REQUEST )
                                      .body( new ResponseMsg( "Already on server. Can't sync" ) ) ;
             }
@@ -343,6 +348,26 @@ public class QBMRestController {
             log.error( "Error synchronizing questions to server", e ) ;
             return ResponseEntity.status( 500 ).body( null ) ;
         }
+    }
+    
+    private boolean isExecutingOnServer() throws SocketException {
+        
+        log.debug( "Checking if we are already executing on the server." ) ;
+        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces() ;
+        
+        for( NetworkInterface nif : Collections.list( nets ) ) {
+            log.debug( "Investing network interface : " + nif.getDisplayName() ) ;
+            Enumeration<InetAddress> addresses = nif.getInetAddresses() ;
+            
+            for( InetAddress address : Collections.list(  addresses ) ) {
+                String ipAddress = address.getHostAddress() ;
+                log.debug( "   IP bound to this nif : " + ipAddress ) ;
+                if( ipAddress.equals( SERVER_IP ) ) {
+                    return true ;
+                }
+            }
+        }
+        return false ;
     }
     
     /**

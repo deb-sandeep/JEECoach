@@ -68,7 +68,7 @@ public interface TestQuestionBindingRepository
             + "    test_question_binding tqb, "
             + "    test_attempt ta, "
             + "    topic_master tm, "
-            + "    mocktest_question_master mqm "
+            + "    test_question_master mqm "
             + "WHERE "
             + "    tqb.topic_id = tm.id AND "
             + "    tqb.test_config_id = ta.test_id AND "

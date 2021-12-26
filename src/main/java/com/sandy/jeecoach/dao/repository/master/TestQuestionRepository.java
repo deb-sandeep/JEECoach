@@ -59,7 +59,7 @@ public interface TestQuestionRepository
             + "    count( tqb.id ) as assignedQuestions "
             + "from "
             + "    topic_master tm "
-            + "    left join mocktest_question_master mqm "
+            + "    left join test_question_master mqm "
             + "      on "
             + "            tm.id = mqm.topic_id "
             + "    left join test_question_binding tqb "

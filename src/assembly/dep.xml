@@ -35,6 +35,16 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${project.basedir}/src/main/config</directory>
+            <outputDirectory>/config</outputDirectory>
+            <includes>
+                <include>application.properties</include>
+                <include>log4j.properties</include>
+                <include>jeecoach.properties</include>
+                <include>ans_lookup.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${project.build.directory}</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>

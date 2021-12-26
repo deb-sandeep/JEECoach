@@ -33,3 +33,40 @@ delete from test_config_index ;
 delete from test_attempt_lap_snapshot ;
 delete from test_attempt ;
 
+Installing jeecoach as a service on the server
+----------------------------------------------
+
+Steps to install JEECoach as a system service
+
+1. Link the jeecoach.service file as a system service file
+
+cd ~/etc/systemd/system
+sudo ln -s /home/sandeep/projects/bin/jeecoach/jeecoach.service jeecoach.service
+
+2. Verify the link exists
+
+3. Reload the systemctl daemon
+
+systemctl daemon-reload
+
+4. Enable jeecoach service
+
+systemctl enable jeecoach.service
+
+5. Confirm that the service was created successfully
+
+systemctl --all | grep jeecoach.service
+
+6. Start the service
+
+systemctl start jeecoach.service
+
+Removing full_group_by in mysql
+----------------------------------------------
+In /etc/mysql/mysql.conf.d
+
+Add the following line at the end of mysqld.cnf
+
+sql_mode = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+
+Restart mysql service and jeecoach service in succession.

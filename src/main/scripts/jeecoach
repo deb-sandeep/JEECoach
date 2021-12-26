@@ -6,7 +6,7 @@ cd -
 
 CP="$SCRIPTDIR/config:$SCRIPTDIR/lib/*"
 
-java -Djava.awt.headless=false \
+/usr/lib/jvm/jdk/bin/java -Djava.awt.headless=false \
      -Dcom.sun.management.jmxremote \
      -Dcom.sun.management.jmxremote.port=9010 \
      -Dcom.sun.management.jmxremote.local.only=false \

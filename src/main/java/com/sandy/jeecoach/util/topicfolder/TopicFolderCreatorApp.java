@@ -19,7 +19,7 @@ public class TopicFolderCreatorApp {
         File homeDir = new File( System.getProperty( "user.home" ) ) ;
         CACHE_DIR = new File( homeDir, "/projects/source/JEECoachQuestionImages" ) ;
         
-        URL url = TopicFolderCreatorApp.class.getResource( "/config/syllabus-meta.xlsx" ) ;
+        URL url = TopicFolderCreatorApp.class.getResource( "/syllabus-meta.xlsx" ) ;
         TOPIC_META_FILE = Paths.get( url.toURI() ).toFile() ;
         
         TopicFolderCreatorApp app = new TopicFolderCreatorApp() ;
