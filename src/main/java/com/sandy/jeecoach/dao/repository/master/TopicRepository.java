@@ -15,16 +15,22 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
           + "from Topic t "
           + "where "
           + "    t.active = true and "
-          + "    t.subject.name = :subjectName"
+          + "    t.subject.name = :subjectName and "
+          + "    t.std = :std "
+          + "order by "
+          + "    t.std asc"
     )
-    List<Topic> findAllBySubjectNameOrderByIdAsc(  
-                                    @Param("subjectName") String subjectName ) ;
+    List<Topic> findAllBySubjectNameAndStdOrderByIdAsc(  
+                                    @Param("subjectName") String subjectName,
+                                    @Param("std") Integer std ) ;
     
     @Query( value = 
             "select t "
           + "from Topic t "
           + "where "
           + "    t.active = true "
+          + "order by "
+          + "    t.std asc "
     )
     List<Topic> findActiveTopics() ;
 }

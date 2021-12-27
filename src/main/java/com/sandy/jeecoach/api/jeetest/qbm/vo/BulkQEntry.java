@@ -6,15 +6,18 @@ import java.util.List ;
 import com.sandy.jeecoach.api.jeetest.qbm.helper.BulkQuestionEntryHelper.FileInfo ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
 
+import lombok.Data ;
+
+@Data
 public class BulkQEntry {
 
-    private String  qRef     = "" ;
-    private String  qType    = "SCA" ;
-    private String  aText    = "" ;
-    private Integer latLevel = 3 ;
-    private Integer projTime = 120 ;
-    private Boolean saved    = false ;
-    private Topic   topic    = null ;
+    private String  qRef         = "" ;
+    private String  questionType = "SCA" ;
+    private String  ansText      = "" ;
+    private Integer latLevel     = 3 ;
+    private Integer projTime     = 120 ;
+    private Boolean saved        = false ;
+    private Topic   topic        = null ;
     
     private List<String> imgPaths  = new ArrayList<>() ;
     private List<String> imgNames  = new ArrayList<>() ;
@@ -33,95 +36,29 @@ public class BulkQEntry {
         
         if( qRef.contains( "/SCA/" ) || 
             qRef.contains( "/ART/" ) ) {
-            this.qType = "SCA" ;
+            this.questionType = "SCA" ;
         }
         else if( qRef.contains( "/MCA/" ) || 
                  qRef.contains( "/MCQ/" ) ) {
-            this.qType = "MCA" ;
+            this.questionType = "MCA" ;
             this.projTime = 240 ;
         }
         else if( qRef.contains( "/MMT/" ) ||
                  qRef.contains( "/MLT/" ) || 
                  qRef.contains( "/CMT/" ) ) {
-            this.qType = "MMT" ;
+            this.questionType = "MMT" ;
             this.projTime = 240 ;
         }
         else if( qRef.contains( "/LCT/" ) ) {
-            this.qType = "LCT" ;
+            this.questionType = "LCT" ;
             this.projTime = 180 ;
         }
         else if( qRef.contains( "/NT/" ) ) {
-            this.qType = "NT" ;
+            this.questionType = "NT" ;
             this.projTime = 240 ;
         }
         else {
-            this.qType = "SCA" ;
+            this.questionType = "SCA" ;
         }
-    }
-    
-    public String getqRef() {
-        return qRef ;
-    }
-    public void setqRef( String qRef ) {
-        this.qRef = qRef ;
-    }
-    
-    public String getqType() {
-        return qType ;
-    }
-    public void setqType( String qType ) {
-        this.qType = qType ;
-    }
-    
-    public String getaText() {
-        return aText ;
-    }
-    public void setaText( String aText ) {
-        this.aText = aText ;
-    }
-    
-    public Integer getLatLevel() {
-        return latLevel ;
-    }
-    public void setLatLevel( Integer latLevel ) {
-        this.latLevel = latLevel ;
-    }
-    
-    public Integer getProjTime() {
-        return projTime ;
-    }
-    public void setProjTime( Integer projTime ) {
-        this.projTime = projTime ;
-    }
-    
-    public Boolean getSaved() {
-        return saved ;
-    }
-    public void setSaved( Boolean saved ) {
-        this.saved = saved ;
-    }
-
-    public List<String> getImgNames() {
-        return imgNames ;
-    }
-
-    public void setImgNames( List<String> imgNames ) {
-        this.imgNames = imgNames ;
-    }
-
-    public List<String> getImgPaths() {
-        return imgPaths;
-    }
-
-    public void setImgPaths( List<String> imgPaths ) {
-        this.imgPaths = imgPaths;
-    }
-
-    public Topic getTopic() {
-        return topic ;
-    }
-
-    public void setTopic( Topic topic ) {
-        this.topic = topic ;
     }
 }

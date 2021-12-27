@@ -128,12 +128,12 @@ public class BulkQuestionEntryHelper {
                     ansLookupKey = ansLookupKey.substring( 0, ansLookupKey.length()-4 ) ;
                     
                     if( JEECoach.BULK_ANS_LOOKUP.containsKey( ansLookupKey ) ) {
-                        entry.setaText( JEECoach.BULK_ANS_LOOKUP.getProperty( ansLookupKey ) ) ;
+                        entry.setAnsText( JEECoach.BULK_ANS_LOOKUP.getProperty( ansLookupKey ) ) ;
                     }
                     else if( ansLookupKey.contains( "_LCT_" ) ) {
                         ansLookupKey = getLCTAnsLookupKey( ansLookupKey ) ;
                         if( JEECoach.BULK_ANS_LOOKUP.containsKey( ansLookupKey ) ) {
-                            entry.setaText( JEECoach.BULK_ANS_LOOKUP.getProperty( ansLookupKey ) ) ;
+                            entry.setAnsText( JEECoach.BULK_ANS_LOOKUP.getProperty( ansLookupKey ) ) ;
                         }
                     }
                 }

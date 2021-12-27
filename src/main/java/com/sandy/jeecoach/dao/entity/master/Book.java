@@ -16,12 +16,12 @@ public class Book {
     @JoinColumn( name="subject_name" )
     private Subject subject ;
     
-    private String bookName ;
-    private String bookShortName ;
-    private String symbol ;
-    private String repoDirName ;
-    private boolean forProblems ;
-    private String authorNames ;
+    private Integer std ;
+    private String  bookShortName ;
+    private String  bookName ;
+    private String  authorNames ;
+    
+    private Boolean active = Boolean.FALSE ;
     
     public String toString() {
         return subject.getName() + " / " + bookShortName ;

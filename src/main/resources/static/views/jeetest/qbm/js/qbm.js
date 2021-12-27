@@ -25,7 +25,7 @@ sConsoleApp.controller( 'QBMController', function( $scope, $http ) {
 		$scope.alerts.splice( index, 1 ) ;
 	}
 
-    $scope.loadQBMMasterData = function() {
+    $scope.loadQBMMasterData = function( callback ) {
     	
     	if( $scope.qbmMasterData != null ) return ;
         
@@ -38,6 +38,7 @@ sConsoleApp.controller( 'QBMController', function( $scope, $http ) {
                     console.log( "QBM master data received." ) ;
                     console.log( response ) ;
                     $scope.qbmMasterData = response.data ;
+                    callback() ;
                 }, 
                 function( error ){
                     console.log( "Error getting QBM master data." ) ;

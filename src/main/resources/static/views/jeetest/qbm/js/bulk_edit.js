@@ -24,7 +24,8 @@ sConsoleApp.controller( 'BulkEditController',
 	$scope.$parent.navBarTitle = "Create Questions in Bulk" ;
 	$scope.validationErrors = [] ;
 	$scope.baseInput = {
-		subjectName : "",
+		subjectName : "IIT - Maths",
+        standard : 0,
 		topic : null,
 		book : null,
 		baseQRef : ""
@@ -37,7 +38,9 @@ sConsoleApp.controller( 'BulkEditController',
 	
 	// First load the drop down master data from the server. The drop down
 	// master data will consist of subjects, topics, books etc.
-	$scope.$parent.loadQBMMasterData() ;
+	$scope.$parent.loadQBMMasterData( function() {
+        $scope.baseInput.standard = $scope.$parent.qbmMasterData.standardNames[0] ;
+    }) ;
 	
 	// --- [END] Controller initialization
 	
@@ -174,10 +177,10 @@ sConsoleApp.controller( 'BulkEditController',
 		if( $scope.baseInput.subjectName.trim() == "" ) {
 			$scope.validationErrors.push( "Subject name should be specified." ) ;
 		}
-		
-//		if( $scope.baseInput.topic == null ) {
-//			$scope.validationErrors.push( "Topic should be specified." ) ;
-//		}
+        
+        if( $scope.baseInput.standard == 0 ) {
+            $scope.validationErrors.push( "Standard should be specified." ) ;
+        }
 		
 		if( $scope.baseInput.book == null ) {
 			$scope.validationErrors.push( "Book should be specified." ) ;
@@ -193,6 +196,8 @@ sConsoleApp.controller( 'BulkEditController',
     	
         $scope.interactingWithServer = true ;
         $http.get( '/BulkQuestionsEntryMeta', {
+            // NOTE: We are not passing the standard explicitly because it
+            //       can be derived from the book
         	params:{
         		subjectName : $scope.baseInput.subjectName,
         		topicId : topicId,

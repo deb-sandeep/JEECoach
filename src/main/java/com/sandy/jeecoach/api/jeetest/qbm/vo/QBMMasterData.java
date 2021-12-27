@@ -8,6 +8,9 @@ import java.util.Map ;
 import com.sandy.jeecoach.dao.entity.master.Book ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
 
+import lombok.Data ;
+
+@Data
 public class QBMMasterData {
     
     public static final String EXAM_TYPE_MAIN = "MAIN" ;
@@ -22,15 +25,16 @@ public class QBMMasterData {
     public static final String S_TYPE_PHY   = "IIT - Physics" ;
     public static final String S_TYPE_CHEM  = "IIT - Chemistry" ;
     public static final String S_TYPE_MATHS = "IIT - Maths" ;
-
+    
     public static String[]  targetExams     = { EXAM_TYPE_MAIN, EXAM_TYPE_ADV } ;
     public static String[]  questionTypes   = { Q_TYPE_SCA, Q_TYPE_MCA, Q_TYPE_NT, Q_TYPE_LCT, Q_TYPE_MMT } ;
     public static String[]  subjectNames    = { S_TYPE_PHY, S_TYPE_CHEM, S_TYPE_MATHS } ;
     public static Integer[] difficultyLevel = { 1, 2, 3, 4, 5 } ;
     public static Integer[] approxSolveTime = { 15, 30, 60, 90, 120, 180, 240, 300, 600 } ; 
 
-    private Map<String, List<Topic>> topics = new HashMap<>() ;
-    private Map<String, List<Book>>  books  = new HashMap<>() ;
+    private Map<Integer, Map<String, List<Topic>>> topicMap = new HashMap<>() ;
+    private Map<Integer, Map<String, List<Book>>>  bookMap  = new HashMap<>() ;
+    private List<Integer> standardNames = new ArrayList<>() ;
     
     public String[] getTargetExams() {
         return targetExams ;
@@ -44,45 +48,63 @@ public class QBMMasterData {
         return subjectNames ;
     }
     
-    public Map<String, List<Topic>> getTopics() {
-        return topics ;
-    }
-    
-    public void setTopics( Map<String, List<Topic>> topics ) {
-        this.topics = topics ;
-    }
-    
-    public void addTopic( Topic topic ) {
-        List<Topic> topicList = topics.get( topic.getSubject().getName() ) ;
-        if( topicList == null ) {
-            topicList = new ArrayList<>() ;
-            topics.put( topic.getSubject().getName(), topicList ) ;
-        }
-        topicList.add( topic ) ;
-    }
-    
-    public Map<String, List<Book>> getBooks() {
-        return books ;
-    }
-    
-    public void setBooks( Map<String, List<Book>> books ) {
-        this.books = books ;
-    }
-    
-    public void addBook( Book book ) {
-        List<Book> bookList = books.get( book.getSubject().getName() ) ;
-        if( bookList == null ) {
-            bookList = new ArrayList<>() ;
-            books.put( book.getSubject().getName(), bookList ) ;
-        }
-        bookList.add( book ) ;
-    }
-    
     public Integer[] getDifficultyLevel() {
         return difficultyLevel ;
     }
     
     public Integer[] getApproxSolveTime() {
         return approxSolveTime ;
+    }
+
+    public void addTopic( Topic topic ) {
+        
+        Integer std = topic.getStd() ;
+        String subjectName = topic.getSubject().getName() ;
+        
+        Map<String, List<Topic>> stdTopics = topicMap.get( std ) ;
+        if( stdTopics == null ) {
+            stdTopics = new HashMap<>() ;
+            topicMap.put( std, stdTopics ) ;
+        }
+        
+        List<Topic> subTopics = stdTopics.get( subjectName ) ;
+        if( subTopics == null ) {
+            subTopics = new ArrayList<>() ;
+            stdTopics.put( subjectName, subTopics ) ;
+        }
+        
+        if( !subTopics.contains( topic ) ) {
+            subTopics.add( topic ) ;
+        }
+        
+        if( !standardNames.contains( std ) ) {
+            standardNames.add( std ) ;
+        }
+    }
+    
+    public void addBook( Book book ) {
+        
+        Integer std = book.getStd() ;
+        String subjectName = book.getSubject().getName() ;
+        
+        Map<String, List<Book>> stdBooks = bookMap.get( std ) ;
+        if( stdBooks == null ) {
+            stdBooks = new HashMap<>() ;
+            bookMap.put( std, stdBooks ) ;
+        }
+        
+        List<Book> subBooks = stdBooks.get( subjectName ) ;
+        if( subBooks == null ) {
+            subBooks = new ArrayList<>() ;
+            stdBooks.put( subjectName, subBooks ) ;
+        }
+        
+        if( !subBooks.contains( book ) ) {
+            subBooks.add( book ) ;
+        }
+        
+        if( !standardNames.contains( std ) ) {
+            standardNames.add( std ) ;
+        }
     }
 }

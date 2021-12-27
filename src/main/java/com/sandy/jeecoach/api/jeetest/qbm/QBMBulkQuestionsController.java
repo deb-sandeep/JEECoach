@@ -35,10 +35,10 @@ public class QBMBulkQuestionsController {
     
     @GetMapping( "/BulkQuestionsEntryMeta" ) 
     public ResponseEntity<List<BulkQEntry>> getRawQuestions(
-            @RequestParam( name="subjectName",  required=true ) String  subjectName,
-            @RequestParam( name="topicId",      required=false ) Integer topicId,
-            @RequestParam( name="bookId",       required=true ) Integer bookId,
-            @RequestParam( name="baseQRef",     required=false) String  baseQRef ) {
+            @RequestParam( name="subjectName", required=true  ) String  subjectName,
+            @RequestParam( name="topicId",     required=false ) Integer topicId,
+            @RequestParam( name="bookId",      required=true  ) Integer bookId,
+            @RequestParam( name="baseQRef",    required=false ) String  baseQRef ) {
         
         Book book = null ;
         BulkQuestionEntryHelper helper = null ;
@@ -52,7 +52,10 @@ public class QBMBulkQuestionsController {
                 topicList.add( topicRepo.findById( topicId ).get() ) ;
             }
             else {
-                topicList.addAll( topicRepo.findAllBySubjectNameOrderByIdAsc( subjectName ) ) ;
+                topicList.addAll( 
+                    topicRepo.findAllBySubjectNameAndStdOrderByIdAsc( 
+                                  subjectName, book.getStd() ) 
+                ) ;
             }
             
             helper = new BulkQuestionEntryHelper( tqRepo ) ;

@@ -16,7 +16,19 @@
 		                 </select>
 		                </td>
 		            </tr>
-		            <!-- Second row -->
+                    <!-- Second row -->
+                    <tr>
+                        <td class="labelcell" width="150px"><label for="standard">Standard</label></td>
+                        <td width="10px">:</td>
+                        <td colspan="7">
+                         <select id="standard" 
+                                 class="form-control"  
+                                 ng-model="baseInput.standard"
+                                 ng-options="item for item in $parent.qbmMasterData.standardNames">
+                         </select>
+                        </td>
+                    </tr>
+		            <!-- Third row -->
 		            <tr>
 			            <td class="labelcell"><label for="topic">Topic</label></td>
 			            <td>:</td>
@@ -24,11 +36,11 @@
 		                 <select id="topic" 
 		                         class="form-control"  
 		                         ng-model="baseInput.topic"
-		                         ng-options="item as item.topicName for item in $parent.qbmMasterData.topics[baseInput.subjectName] track by item.id">
+		                         ng-options="item as item.topicName for item in $parent.qbmMasterData.topicMap[baseInput.standard][baseInput.subjectName] track by item.id">
 		                 </select>
 			            </td>
 		            </tr>
-		            <!-- Third row -->
+		            <!-- Fourth row -->
 		            <tr>
 		                <td class="labelcell"><label for="book">Book</label></td>
 		                <td>:</td>
@@ -36,11 +48,11 @@
 				         <select id="book" 
 				                 class="form-control"  
 				                 ng-model="baseInput.book"
-				                 ng-options="item as item.bookShortName for item in $parent.qbmMasterData.books[baseInput.subjectName] track by item.id">
+				                 ng-options="item as item.bookShortName for item in $parent.qbmMasterData.bookMap[baseInput.standard][baseInput.subjectName] track by item.id">
 				         </select>
 		                </td>
 		            </tr>
-		            <!-- Fourth row -->
+		            <!-- Fifth row -->
                     <tr>
                         <td class="labelcell"><label for="baseQRef">Base QRef</label></td>
                         <td>:</td>
@@ -52,7 +64,7 @@
                          </select>
                         </td>
                     </tr>
-		            <!-- Fifth row -->
+		            <!-- Sixth row -->
                     <tr>
                         <td colspan="7">
 					          <button type="button" class="btn btn-success btn-sm"
@@ -74,7 +86,7 @@
                               </button>
                         </td>
                     </tr>
-		            <!-- Sixth row -->
+		            <!-- Seventh row -->
                     <tr>
                         <td colspan="9">
 							<table class="table table-bordered table-striped table-compact">
@@ -144,7 +156,6 @@
 							</table>
                         </td>
                     </tr>
-		            <!-- Seventh row -->
 		            <!-- Eighth row -->
 		        </table>
 		    </td>

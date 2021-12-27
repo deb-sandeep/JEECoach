@@ -94,7 +94,7 @@ public class QBMRestController {
                 qbmMaster.addTopic( topic ) ;
             }
             
-            for( Book book : bookRepo.findAll() ) {
+            for( Book book : bookRepo.findActiveBooks() ) {
                 qbmMaster.addBook( book ) ;
             }
             return ResponseEntity.status( HttpStatus.OK )
