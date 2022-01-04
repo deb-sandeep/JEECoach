@@ -22,7 +22,7 @@ public class JEECoach
     private static final Logger log = Logger.getLogger( JEECoach.class ) ;
     
     public static File JEETEST_IMG_DIR = new File( System.getProperty( "user.home" ),
-                                                  "projects/workspace/jeecoach/jeetest/images" ) ;
+                                                  "projects/workspace/jeecoach/jeetest/question_images" ) ;
 
     public static File JEETEST_EFFGRAPH_IMG_DIR = new File( System.getProperty( "user.home" ),
                                                   "projects/workspace/jeecoach/jeetest/effgraphs" ) ;

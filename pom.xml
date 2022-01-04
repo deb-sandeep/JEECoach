@@ -166,5 +166,11 @@
 		    <version>3.25.0-GA</version>
 		</dependency>
         
+        <dependency>
+            <groupId>com.sandy.jeecoach.util</groupId>
+            <artifactId>jee-qimg-parser</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        
     </dependencies>
 </project>

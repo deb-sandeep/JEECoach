@@ -17,6 +17,7 @@ public class Book {
     private Subject subject ;
     
     private Integer std ;
+    private String  code ;
     private String  bookShortName ;
     private String  bookName ;
     private String  authorNames ;
