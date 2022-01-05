@@ -1,14 +1,14 @@
 function BulkQEntry( entry ) {
-	this.qRef     = entry.qRef ;
-	this.qType    = entry.qType ;
-	this.aText    = entry.aText ;
-	this.latLevel = entry.latLevel ;
-	this.projTime = entry.projTime ;
-	this.saved    = entry.saved ;
-	this.imgNames = entry.imgNames ;
-	this.imgPaths = entry.imgPaths ;
-	this.hidden   = false ;
-	this.topic    = entry.topic ;
+	this.qref            = entry.qref ;
+	this.questionType    = entry.questionType ;
+	this.ansText         = entry.ansText ;
+	this.difficultyLevel = entry.difficultyLevel ;
+	this.projTime        = entry.projTime ;
+	this.saved           = entry.saved ;
+	this.imgNames        = entry.imgNames ;
+	this.imgPaths        = entry.imgPaths ;
+	this.hidden          = false ;
+	this.topic           = entry.topic ;
 	
 	this.mmtOptions = [] ;
 	this.showMMTOptionsEditor = false ;
@@ -77,13 +77,13 @@ sConsoleApp.controller( 'BulkEditController',
 		}
 		
 		$scope.validationErrors.length = 0 ;
-		if( editHelper.isAnswerSemanticallyValid( entry.aText, entry.qType, 
+		if( editHelper.isAnswerSemanticallyValid( entry.ansText, entry.questionType, 
 				                                  $scope.validationErrors ) ) {
 			saveEntryOnServer( entry, saveLinkedEntry ) ;
 		}
 		else {
 			for( var i=0; i<$scope.validationErrors.length; i++ ) {
-				$scope.validationErrors[i] = entry.qRef + " : " + $scope.validationErrors[i] ;
+				$scope.validationErrors[i] = entry.qref + " : " + $scope.validationErrors[i] ;
 			}
 			$( '#validationErrorsDialog' ).modal( 'show' ) ;
 		}
@@ -113,48 +113,48 @@ sConsoleApp.controller( 'BulkEditController',
         }) ;
 	}
 	
-	$scope.qTypeChanged = function( entry ) {
+	$scope.questionTypeChanged = function( entry ) {
 		var nextEntry = entry.nextEntry ;
 		var projTime = 120 ;
 		
 		if( $scope.baseInput.subjectName == "IIT - Chemistry" ) {
-			if( entry.qType == 'MCA' ) {
+			if( entry.questionType == 'MCA' ) {
 				projTime = 180 ;
 			}
-			else if ( entry.qType == 'NT' ) {
+			else if ( entry.questionType == 'NT' ) {
 				projTime = 180 ;
 			}
 		}
 		else {
-			if( entry.qType == 'MCA' ) {
+			if( entry.questionType == 'MCA' ) {
 				projTime = 180 ;
 			}
-			else if ( entry.qType == 'NT' ) {
+			else if ( entry.questionType == 'NT' ) {
 				projTime = 240 ;
 			}
 		}
 		
 		entry.projTime = projTime ;
 		while( nextEntry != null ) {
-			nextEntry.qType = entry.qType ;
+			nextEntry.questionType = entry.questionType ;
 			nextEntry.projTime = projTime ;
 			nextEntry = nextEntry.nextEntry ;
 		}
 	}
 	
 	$scope.answerEntered = function( entry ) {
-	    if( entry.aText.indexOf( ',' ) != -1 ) {
-	        entry.qType = 'MCA' ;
+	    if( entry.ansText.indexOf( ',' ) != -1 ) {
+	        entry.questionType = 'MCA' ;
 	        entry.projTime = 240 ;
 	    }
 	    
-	    if( entry.aText.includes( '-' ) && 
-	        entry.aText.indexOf( '-' ) != 0 ) {
+	    if( entry.ansText.includes( '-' ) && 
+	        entry.ansText.indexOf( '-' ) != 0 ) {
 	        
-	        var parts = entry.aText.split( '-' ) ;
-	        entry.aText = parts[0] ;
+	        var parts = entry.ansText.split( '-' ) ;
+	        entry.ansText = parts[0] ;
 	        if( parts.length > 1 ) {
-	            entry.latLevel = parseInt( parts[1] ) ;
+	            entry.difficultyLevel = parseInt( parts[1] ) ;
 	        }
 	        if( parts.length > 2 ) {
 	            entry.projTime = parseInt( parts[2] ) ;
@@ -206,25 +206,25 @@ sConsoleApp.controller( 'BulkEditController',
         	}
         } )
         .then( 
-                function( response ){
-                    console.log( "Bulk question entry meta data received." ) ;
-                    console.log( response ) ;
-                    $scope.entries.length = 0 ;
-                    var lastEntry = null ;
-                    for( var i=0; i<response.data.length; i++ ) {
-                    	var newEntry = new BulkQEntry( response.data[i] ) ;
-                    	if( lastEntry != null ) {
-                    		lastEntry.nextEntry = newEntry ;
-                    	}
-                        $scope.entries.push( newEntry ) ;
-                        lastEntry = newEntry ;
-                    }
-                }, 
-                function( error ){
-                    console.log( "Server error" ) ;
-                    console.log( error ) ;
-                    $scope.addErrorAlert( "Could not load bulk entry meta data." ) ;
+            function( response ){
+                console.log( "Bulk question entry meta data received." ) ;
+                console.log( response ) ;
+                $scope.entries.length = 0 ;
+                var lastEntry = null ;
+                for( var i=0; i<response.data.length; i++ ) {
+                	var newEntry = new BulkQEntry( response.data[i] ) ;
+                	if( lastEntry != null ) {
+                		lastEntry.nextEntry = newEntry ;
+                	}
+                    $scope.entries.push( newEntry ) ;
+                    lastEntry = newEntry ;
                 }
+            }, 
+            function( error ){
+                console.log( "Server error" ) ;
+                console.log( error ) ;
+                $scope.addErrorAlert( "Could not load bulk entry meta data." ) ;
+            }
         )
         .finally(function() {
             $scope.interactingWithServer = false ;
@@ -236,9 +236,9 @@ sConsoleApp.controller( 'BulkEditController',
     	console.log( "Saving entrh on server." ) ;
     	
     	var qText = "" ;
-    	var tgtExam = ( entry.qType == "MCA" || 
-    	                entry.qType == "LCT" || 
-    	                entry.qType == "MMT" ) ? "ADV" : "MAIN" ;
+    	var tgtExam = ( entry.questionType == "MCA" || 
+    	                entry.questionType == "LCT" || 
+    	                entry.questionType == "MMT" ) ? "ADV" : "MAIN" ;
     	
     	for( var i=0; i<entry.imgPaths.length; i++ ) {
     		qText += "{{@img " + entry.imgPaths[i] + "}}" ;
@@ -247,7 +247,7 @@ sConsoleApp.controller( 'BulkEditController',
     		}
     	}
     	
-    	if( entry.qType == "MMT" && entry.mmtOptions.length > 0 ) {
+    	if( entry.questionType == "MMT" && entry.mmtOptions.length > 0 ) {
     	    qText += "\n" ;
             qText += "<br/>\n" ;
             qText += "<ol type='A'>\n" ;
@@ -266,14 +266,14 @@ sConsoleApp.controller( 'BulkEditController',
             topic                 : entry.topic,
             book                  : $scope.baseInput.book,
             targetExam            : tgtExam,
-            questionType          : entry.qType,
-            questionRef           : entry.qRef,
-            lateralThinkingLevel  : entry.latLevel,
+            questionType          : entry.questionType,
+            questionRef           : entry.qref,
+            lateralThinkingLevel  : entry.difficultyLevel,
             projectedSolveTime    : entry.projTime,
             questionText          : qText,
             lctContext            : null,
             questionFormattedText : null,
-            answerText            : entry.aText,
+            answerText            : entry.ansText,
             synched               : false,
             attempted             : false,
             creationTime          : null,

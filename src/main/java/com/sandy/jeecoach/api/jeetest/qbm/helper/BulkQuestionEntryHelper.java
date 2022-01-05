@@ -1,11 +1,10 @@
 package com.sandy.jeecoach.api.jeetest.qbm.helper;
 
-import java.awt.Point ;
 import java.io.File ;
 import java.io.FileFilter ;
 import java.util.ArrayList ;
 import java.util.Collections ;
-import java.util.LinkedHashMap ;
+import java.util.HashMap ;
 import java.util.List ;
 import java.util.Map ;
 
@@ -22,40 +21,6 @@ import com.sandy.jeecoach.util.JEEQuestionImage ;
 
 public class BulkQuestionEntryHelper {
     
-    public static class FileInfo {
-        public String   qRef = null ;
-        public Point    qNo = null ;
-        public int      partNum = -1 ;
-        public String   lctRef = null ;
-        public boolean  isLCTQuestion = false ;
-        public boolean  isLCTContext = false ;
-        public Point    lctNo = null ;
-        
-        public boolean isLCT() {
-            return lctRef != null ;
-        }
-        
-        public boolean isPart() { 
-            return partNum != -1 ;
-        }
-        
-        public String getQRefBase() {
-            return qRef.substring( 0, qRef.lastIndexOf( '/' ) ) ;
-        }
-        
-        public String toString() {
-            StringBuffer buffer = new StringBuffer() ;
-            buffer.append( "\nQRef   = " + qRef ).append( "\n" )
-                  .append( "QNo    = " + qNo.x + "." + qNo.y ).append( "\n" )
-                  .append( "Part # = " + partNum ).append( "\n" )
-                  .append( "lctRef = " + lctRef ).append( "\n" )
-                  .append( "lct Q? = " + isLCTQuestion ).append( "\n" )
-                  .append( "lct C? = " + isLCTContext ).append( "\n" )
-                  .append( "lctNo  = " + lctNo ).append( "\n" ) ;
-            return buffer.toString() ;
-        }
-    }
-    
     static final Logger log = Logger.getLogger( BulkQuestionEntryHelper.class ) ;
     
     private TestQuestionRepository tqRepo = null ;
@@ -64,34 +29,60 @@ public class BulkQuestionEntryHelper {
         this.tqRepo = repo ;
     }
 
-    public List<BulkQEntry> findBulkQuestionEntries( 
-                                            String subjectName, Topic topic, 
-                                            Book book, String baseQRef ) {
+    public List<BulkQEntry> getEntries( String subjectName, Topic topic, 
+                                        Book book, String baseQRef ) {
         
-        List<JEEQuestionImage> unassignedImages = null ;
+        // NOTE: Below logic does not cater for the case where LCT
+        //       context is made of parts. 
+        
+        List<JEEQuestionImage> unassignedImgs = null ;
         List<String> usedQRefs = null ;
+        
         ArrayList<BulkQEntry> qEntries = new ArrayList<>() ;
+        Map<String, JEEQuestionImage> lctCtxMap = new HashMap<>() ;
         
         usedQRefs = getUsedQRefs( topic.getId(), book.getId(), baseQRef ) ;
-        unassignedImages = selectUnassignedImages( 
-                                        subjectName, topic, book,
-                                        baseQRef, usedQRefs ) ;
+        unassignedImgs = selectUnassignedImgs( subjectName, topic, book,
+                                               baseQRef, usedQRefs ) ;
         
-        Map<String, BulkQEntry> entriesMap = new LinkedHashMap<>() ;
+        String prevQRef = null ;
+        BulkQEntry entry = null ;
         
-        if( !unassignedImages.isEmpty() ) {
-            Collections.sort( unassignedImages ) ;
+        if( !unassignedImgs.isEmpty() ) {
+            Collections.sort( unassignedImgs ) ;
             
-            
-            for( BulkQEntry entry : entriesMap.values() ) {
-                entry.setTopic( topic ) ;
-                qEntries.add( entry ) ;
+            for( JEEQuestionImage img : unassignedImgs ) {
+                
+                String qRef = img.getQRef() ;
+                if( img.isLCTContext() ) {
+                    lctCtxMap.put( qRef, img ) ;
+                }
+                else if( prevQRef == null || !prevQRef.equals( qRef ) ) {
+                    entry = new BulkQEntry( img, topic ) ;
+                    qEntries.add( entry ) ;
+                    
+                    if( entry.isLCT() ) {
+                        JEEQuestionImage lctCtxImg = null ;
+                        
+                        lctCtxImg = lctCtxMap.get( img.getLCTCtxQRef() ) ;
+                        entry.addImage( lctCtxImg, true ) ;
+                    }
+                } 
+                else {
+                    entry.addImage( img ) ;
+                }
+                prevQRef = qRef ;
             }
         }
+        
+        for( BulkQEntry bulkEntry : qEntries ) {
+            log.debug( bulkEntry.getQRef() ) ;
+        }
+        
         return qEntries ;
     }
     
-    private List<JEEQuestionImage> selectUnassignedImages( 
+    private List<JEEQuestionImage> selectUnassignedImgs( 
                                            String subjectName, Topic topic,
                                            Book book, String baseQRef, 
                                            List<String> usedQRefs ) {
@@ -136,7 +127,7 @@ public class BulkQuestionEntryHelper {
                     return true ;
                 }
                 catch( Exception e ) {
-                    log.info( "Not a valid JEE question.\nMsg: " + e.getMessage() ) ;
+                    log.info( "Not a valid JEE question.\nMsg: " + e.getMessage(), e ) ;
                     return false ;
                 }
             }

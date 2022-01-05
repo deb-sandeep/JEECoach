@@ -1,64 +1,78 @@
 package com.sandy.jeecoach.api.jeetest.qbm.vo;
 
+import static com.sandy.jeecoach.JEECoach.JEETEST_IMG_DIR ;
+
+import java.io.File ;
 import java.util.ArrayList ;
 import java.util.List ;
 
-import com.sandy.jeecoach.api.jeetest.qbm.helper.BulkQuestionEntryHelper.FileInfo ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
+import com.sandy.jeecoach.util.JEEQuestionImage ;
 
 import lombok.Data ;
 
 @Data
 public class BulkQEntry {
 
-    private String  qRef         = "" ;
-    private String  questionType = "SCA" ;
-    private String  ansText      = "" ;
-    private Integer latLevel     = 3 ;
-    private Integer projTime     = 120 ;
-    private Boolean saved        = false ;
-    private Topic   topic        = null ;
+    private String  qRef            = null ;
+    private String  questionType    = null ;
+    private Integer difficultyLevel = 3 ;
+    private Integer projTime        = 120 ;
+    private Boolean saved           = false ;
+    private Topic   topic           = null ;
+    private String  ansText         = "" ;
+    private boolean isLCT           = false ; 
     
     private List<String> imgPaths  = new ArrayList<>() ;
     private List<String> imgNames  = new ArrayList<>() ;
     
-    public BulkQEntry() {
+    public BulkQEntry( JEEQuestionImage qImg, Topic topic ) {
+        this.topic = topic ;
+        populateAttributes( qImg ) ;
+        addImage( qImg ) ;
     }
     
-    public BulkQEntry( FileInfo fi ) {
-        this.qRef = fi.qRef ;
-        prePopulateAttributesBasedOnDeducedQType( fi.qRef ) ;
+    public void addImage( JEEQuestionImage qImg ) {
+        addImage( qImg, false ) ;
     }
     
-    private void prePopulateAttributesBasedOnDeducedQType( String qRef ) {
-        this.latLevel = 3 ;
-        this.projTime = 120 ;
+    public void addImage( JEEQuestionImage qImg, boolean first ) {
         
-        if( qRef.contains( "/SCA/" ) || 
-            qRef.contains( "/ART/" ) ) {
-            this.questionType = "SCA" ;
-        }
-        else if( qRef.contains( "/MCA/" ) || 
-                 qRef.contains( "/MCQ/" ) ) {
-            this.questionType = "MCA" ;
-            this.projTime = 240 ;
-        }
-        else if( qRef.contains( "/MMT/" ) ||
-                 qRef.contains( "/MLT/" ) || 
-                 qRef.contains( "/CMT/" ) ) {
-            this.questionType = "MMT" ;
-            this.projTime = 240 ;
-        }
-        else if( qRef.contains( "/LCT/" ) ) {
-            this.questionType = "LCT" ;
-            this.projTime = 180 ;
-        }
-        else if( qRef.contains( "/NT/" ) ) {
-            this.questionType = "NT" ;
-            this.projTime = 240 ;
+        File imgFile = qImg.getImgFile() ;
+        
+        String imgPath = imgFile.getAbsolutePath() ;
+        String imgName = imgFile.getName() ;
+        
+        imgPath = imgPath.substring( JEETEST_IMG_DIR.getAbsolutePath().length() ) ;
+        
+        if( first ) {
+            imgPaths.add( 0, imgPath ) ;
+            imgNames.add( 0, imgName ) ;
         }
         else {
-            this.questionType = "SCA" ;
+            imgPaths.add( imgPath ) ;
+            imgNames.add( imgName ) ;
         }
+    }
+    
+    private void populateAttributes( JEEQuestionImage qImg ) {
+        
+        this.qRef            = qImg.getQRef() ;
+        this.questionType    = qImg.getQuestionType() ;
+        this.difficultyLevel = qImg.getDifficultyLevel() ;
+        this.projTime        = qImg.getProjectedTime() ;
+        this.isLCT           = qImg.isLCT() ;
+    }
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder() ;
+        sb.append( qRef ).append( "\n----------------------------\n" ) ;
+        
+        for( int i=0; i<imgPaths.size(); i++ ) {
+            sb.append( "   " + imgNames.get( i ) + "\n" )
+              .append( "      " + imgPaths.get( i ) + "\n" ) ;
+        }
+          
+        return sb.toString() ;
     }
 }

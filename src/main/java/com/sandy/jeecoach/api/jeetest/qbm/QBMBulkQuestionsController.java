@@ -61,7 +61,7 @@ public class QBMBulkQuestionsController {
             helper = new BulkQuestionEntryHelper( tqRepo ) ;
             for( Topic topic : topicList ) {
                 entries.addAll( 
-                   helper.findBulkQuestionEntries( 
+                   helper.getEntries( 
                      subjectName, topic, book, baseQRef 
                    ) 
                 ) ;
