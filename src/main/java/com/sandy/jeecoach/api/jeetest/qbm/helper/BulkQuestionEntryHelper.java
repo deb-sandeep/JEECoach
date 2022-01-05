@@ -61,6 +61,7 @@ public class BulkQuestionEntryHelper {
                     entry = new BulkQEntry( img, topic ) ;
                     qEntries.add( entry ) ;
                     
+                    
                     if( entry.isLCT() ) {
                         JEEQuestionImage lctCtxImg = null ;
                         
@@ -78,7 +79,6 @@ public class BulkQuestionEntryHelper {
         for( BulkQEntry bulkEntry : qEntries ) {
             log.debug( bulkEntry.getQRef() ) ;
         }
-        
         return qEntries ;
     }
     

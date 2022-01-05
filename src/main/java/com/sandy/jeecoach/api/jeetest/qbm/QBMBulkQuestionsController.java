@@ -60,11 +60,9 @@ public class QBMBulkQuestionsController {
             
             helper = new BulkQuestionEntryHelper( tqRepo ) ;
             for( Topic topic : topicList ) {
-                entries.addAll( 
-                   helper.getEntries( 
-                     subjectName, topic, book, baseQRef 
-                   ) 
-                ) ;
+                List<BulkQEntry> topicQs = null ;
+                topicQs = helper.getEntries( subjectName, topic, book, baseQRef ) ;
+                entries.addAll( topicQs ) ;
             }
             
             return ResponseEntity.status( HttpStatus.OK )

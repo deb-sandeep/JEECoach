@@ -6,6 +6,7 @@ import java.io.File ;
 import java.util.ArrayList ;
 import java.util.List ;
 
+import com.sandy.jeecoach.JEECoach ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
 import com.sandy.jeecoach.util.JEEQuestionImage ;
 
@@ -62,6 +63,11 @@ public class BulkQEntry {
         this.difficultyLevel = qImg.getDifficultyLevel() ;
         this.projTime        = qImg.getProjectedTime() ;
         this.isLCT           = qImg.isLCT() ;
+        this.ansText         = lookupAns() ;
+    }
+    
+    private String lookupAns() {
+        return JEECoach.BULK_ANS_LOOKUP.getProperty( qRef, "" ) ;
     }
     
     public String toString() {

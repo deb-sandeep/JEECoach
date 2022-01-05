@@ -156,7 +156,7 @@
 		            <!-- Eighth row -->
 		        </table>
 		    </td>
-		    <td valign="top">
+		    <td valign="top" width="60%">
 		        <table class="table table-condensed">
 		            <!-- First row -->
 		            <tr>
@@ -184,9 +184,10 @@
                             </span>
 					      </div>
 					      <div class="panel-body">
-					        <img ng-repeat="imgPath in entry.imgPaths track by $index"
-					             ng-src="/jeetest/images/{{imgPath}}"/>
-					        <br>
+					        <div ng-repeat="imgPath in entry.imgPaths track by $index">
+						        <img ng-src="/jeetest/images/{{imgPath}}"/>
+						        <br/>
+					        </div>
 					        <ol type="A" ng-if="entry.questionType == 'MMT'" >
 					           <li ng-repeat="option in entry.mmtOptions track by $index">
 					               ) &nbsp; {{option}}
