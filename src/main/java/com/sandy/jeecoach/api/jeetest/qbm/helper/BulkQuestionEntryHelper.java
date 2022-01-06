@@ -2,11 +2,13 @@ package com.sandy.jeecoach.api.jeetest.qbm.helper;
 
 import java.io.File ;
 import java.io.FileFilter ;
+import java.io.IOException ;
 import java.util.ArrayList ;
 import java.util.Collections ;
 import java.util.HashMap ;
 import java.util.List ;
 import java.util.Map ;
+import java.util.Properties ;
 
 import org.apache.log4j.Logger ;
 
@@ -22,6 +24,35 @@ import com.sandy.jeecoach.util.JEEQuestionImage ;
 public class BulkQuestionEntryHelper {
     
     static final Logger log = Logger.getLogger( BulkQuestionEntryHelper.class ) ;
+    
+    public static Properties BULK_ANS_LOOKUP = new Properties() ;
+    
+    static {
+        try {
+            BULK_ANS_LOOKUP.load( JEECoach.class.getResourceAsStream( "/ans_lookup.properties" ) ) ;
+            preProcessBulkAnswers() ;
+        }
+        catch( IOException e ) {
+            log.error( "Could not load bulk answer lookup properties.", e ) ;
+        }
+    }
+    
+    public static void preProcessBulkAnswers() {
+        
+        for( Object key : BULK_ANS_LOOKUP.keySet() ) {
+            String value = BULK_ANS_LOOKUP.getProperty( (String)key ) ;
+            
+            value = value.trim() ;
+            value = value.replace( "(", "" ) ;
+            value = value.replace( ")", "" ) ;
+            value = value.replace( "A", "1" ) ;
+            value = value.replace( "B", "2" ) ;
+            value = value.replace( "C", "3" ) ;
+            value = value.replace( "D", "4" ) ;
+            
+            BULK_ANS_LOOKUP.put( key, value ) ;
+        }
+    }
     
     private TestQuestionRepository tqRepo = null ;
     
@@ -61,7 +92,6 @@ public class BulkQuestionEntryHelper {
                     entry = new BulkQEntry( img, topic ) ;
                     qEntries.add( entry ) ;
                     
-                    
                     if( entry.isLCT() ) {
                         JEEQuestionImage lctCtxImg = null ;
                         
@@ -76,9 +106,6 @@ public class BulkQuestionEntryHelper {
             }
         }
         
-        for( BulkQEntry bulkEntry : qEntries ) {
-            log.debug( bulkEntry.getQRef() ) ;
-        }
         return qEntries ;
     }
     

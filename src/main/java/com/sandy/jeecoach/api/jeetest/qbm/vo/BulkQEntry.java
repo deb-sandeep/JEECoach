@@ -6,7 +6,7 @@ import java.io.File ;
 import java.util.ArrayList ;
 import java.util.List ;
 
-import com.sandy.jeecoach.JEECoach ;
+import com.sandy.jeecoach.api.jeetest.qbm.helper.BulkQuestionEntryHelper ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
 import com.sandy.jeecoach.util.JEEQuestionImage ;
 
@@ -67,7 +67,7 @@ public class BulkQEntry {
     }
     
     private String lookupAns() {
-        return JEECoach.BULK_ANS_LOOKUP.getProperty( qRef, "" ) ;
+        return BulkQuestionEntryHelper.BULK_ANS_LOOKUP.getProperty( qRef, "" ) ;
     }
     
     public String toString() {

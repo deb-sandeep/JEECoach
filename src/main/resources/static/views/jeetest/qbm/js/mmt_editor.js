@@ -1,6 +1,6 @@
 function MatrixMeta() {
     this.col1EntryKeys = ['A', 'B', 'C', 'D' ] ;
-    this.col2EntryKeys = ['p', 'q', 'r', 's', 't' ] ;
+    this.col2EntryKeys = ['a', 'b', 'c', 'd', 'e' ] ;
 }
 
 function SolutionGrid( matrixMeta ) {
@@ -94,7 +94,7 @@ function SolutionGrid( matrixMeta ) {
 sConsoleApp.controller( 'MMTEditorController', function( $scope, $http ) {
 	
     $scope.col1KeysRange = "A-D" ;
-    $scope.col2KeysRange = "p-t" ;
+    $scope.col2KeysRange = "a-e" ;
     $scope.meta = new MatrixMeta() ;
     
     $scope.$on( 'mmtEditorIsBeingShown', function( event, entry ){
@@ -199,15 +199,30 @@ sConsoleApp.controller( 'MMTEditorController', function( $scope, $http ) {
     }
     
     function keyRefresh( range, keyArray ) {
-        var fromChar = range.charAt(0) ;
-        var toChar = range.charAt(2) ;
+        
+        var rangeParts = range.split('-') ;
+        
+        var fromSeq = rangeParts[0] ;
+        var toSeq = rangeParts[1] ;
         
         keyArray.length = 0 ;
-        var key = fromChar ;
-        do {
-            keyArray.push( key ) ;
-            key = String.fromCharCode( key.charCodeAt() + 1 ) ;
+        var key = fromSeq ;
+        
+        if( !isNaN( parseFloat( key ) ) && isFinite( key ) ) {
+            var from = parseInt( fromSeq ) ;
+            var to   = parseInt( toSeq ) ;
+            do {
+                keyArray.push( from.toString() ) ;
+                from++ ;
+            }
+            while( from <= to ) ;
         }
-        while ( key.charCodeAt() <= toChar.charCodeAt() ) ;
+        else {
+            do {
+                keyArray.push( key ) ;
+                key = String.fromCharCode( key.charCodeAt() + 1 ) ;
+            }
+            while( key.charCodeAt() <= toSeq.charCodeAt() ) ;
+        }
     }
 } ) ;
