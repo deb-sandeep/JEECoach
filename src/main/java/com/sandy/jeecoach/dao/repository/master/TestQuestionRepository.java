@@ -111,7 +111,7 @@ public interface TestQuestionRepository
             + "WHERE "
             +   "q.topic.id = :topicId AND "
             +   "q.book.id = :bookId AND "
-            +   "q.questionRef like :qRef%" )
+            +   "q.questionRef like %:qRef%" )
     public List<TestQuestion> findQuestionsWithQRef( 
                                        @Param( "topicId" ) Integer topicId ,
                                        @Param( "bookId" ) Integer bookId,

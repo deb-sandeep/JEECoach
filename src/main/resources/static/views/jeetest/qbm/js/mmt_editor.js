@@ -146,7 +146,7 @@ sConsoleApp.controller( 'MMTEditorController', function( $scope, $http ) {
         for( var i=0; i<orderArray.length; i++ ) {
             var index = orderArray[i] ;
             if( index == 0 ) {
-                $scope.$parent.entry.aText = "" + (i+1) ;
+                $scope.$parent.entry.ansText = "" + (i+1) ;
             }
             entryMMTOptions.push( options[index] ) ;
         }
