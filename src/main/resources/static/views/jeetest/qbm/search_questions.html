@@ -1,6 +1,25 @@
 <div class="split left">
 	<div class="panel-group" id="accordion">
 	  
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" data-target="#standardChoice">
+            Standard
+            </a>
+          </h4>
+        </div>
+        <div id="standardChoice" class="panel-collapse collapse">
+            <select id="subjectChoiceList" 
+                    class="form-control" 
+                    size=3
+                    ng-model="$parent.searchCriteria.selectedStandard"
+                    ng-options="obj for obj in $parent.qbmMasterData.standardNames"
+                    ng-change="topicOrSubjectSelectionChanged()">
+            </select>
+        </div>
+      </div>
+      
 	  <div class="panel panel-default">
 	    <div class="panel-heading">
 	      <h4 class="panel-title">
@@ -16,7 +35,7 @@
 	                size=3
 	                ng-model="$parent.searchCriteria.selectedSubjects"
 	                ng-options="obj for obj in $parent.qbmMasterData.subjectNames"
-	                ng-change="subjectSelectionChanged()">
+	                ng-change="topicOrSubjectSelectionChanged()">
 	        </select>
         </div>
 	  </div>

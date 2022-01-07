@@ -53,8 +53,8 @@ sConsoleApp.controller( 'SearchQuestionController', function( $scope, $http, $lo
         }) ;
 	}
 	
-	$scope.subjectSelectionChanged = function() {
-		console.log( $scope.$parent.searchCriteria.selectedSubjects ) ;
+	$scope.topicOrSubjectSelectionChanged = function() {
+		var standard = $scope.$parent.searchCriteria.selectedStandard ;
 		
 		$scope.$parent.selectedTopics = [] ;
 		$scope.$parent.selectedBooks = [] ;
@@ -64,8 +64,9 @@ sConsoleApp.controller( 'SearchQuestionController', function( $scope, $http, $lo
 		
 		for( i=0; i<$scope.$parent.searchCriteria.selectedSubjects.length; i++ ) {
 			var subject = $scope.$parent.searchCriteria.selectedSubjects[i] ;
-			var topics = $scope.$parent.qbmMasterData.topics[ subject ] ;
-			var books = $scope.$parent.qbmMasterData.books[ subject ] ;
+			
+			var topics = $scope.$parent.qbmMasterData.topicMap[ standard ][ subject ] ;
+			var books = $scope.$parent.qbmMasterData.bookMap[ standard ][ subject ] ;
 			
 			Array.prototype.push.apply( $scope.topicsMasterList, topics ) ;
 			Array.prototype.push.apply( $scope.booksMasterList, books ) ;
@@ -89,6 +90,7 @@ sConsoleApp.controller( 'SearchQuestionController', function( $scope, $http, $lo
 		// NOTE: Empty value of any of the parameters implies that we consider
 		//       all the possibilities for that parameter.
 		var criteria = {
+            standard              : $scope.$parent.searchCriteria.selectedStandard,
 			subjects              : $scope.$parent.searchCriteria.selectedSubjects,
 			selectedQuestionTypes : $scope.$parent.searchCriteria.selectedQuestionTypes,
 			showOnlyUnsynched     : $scope.$parent.searchCriteria.showOnlyUnsynched,

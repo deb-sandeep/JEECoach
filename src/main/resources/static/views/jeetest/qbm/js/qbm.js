@@ -7,6 +7,7 @@ sConsoleApp.controller( 'QBMController', function( $scope, $http ) {
 	
 	$scope.lastUsedSearchCriteria = null ;
 	$scope.searchCriteria = {
+            selectedStandard : 7,
 			selectedSubjects : [],
 			selectedTopics : [],
 			selectedBooks : [],

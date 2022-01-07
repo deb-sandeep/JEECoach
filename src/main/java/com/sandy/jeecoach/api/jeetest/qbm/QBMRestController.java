@@ -402,7 +402,6 @@ public class QBMRestController {
         try {
             for( String path : imgPaths ) {
                 File file = new File( JEECoach.JEETEST_IMG_DIR, path ) ;
-                log.debug( "Deleting " + file.getAbsolutePath() ) ;
                 file.delete() ;
             }
             return ResponseEntity.status( HttpStatus.OK )

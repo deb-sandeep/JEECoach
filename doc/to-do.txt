@@ -1,0 +1,16 @@
+--------------------------------------------------------------------------------
+----------------------------------- To do --------------------------------------
+
+* Search feature for bulk edit
+* Sync to remote
+    * Upload latest version to dell-op
+        - Check for libraries (jeequestion)
+    * Test/fix upload
+
+--------------------------------------------------------------------------------
+----------------------------------- Completed ----------------------------------
+
+* MMT editor
+* Saving
+* Img size and form size tweaks
+* 
