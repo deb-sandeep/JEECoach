@@ -1,13 +1,13 @@
 package com.sandy.jeecoach.api.jeetest.qbm.vo;
 
 import java.io.File ;
+import java.sql.Timestamp ;
 import java.util.ArrayList ;
 import java.util.List ;
 
 import org.apache.commons.codec.binary.Hex ;
 import org.apache.commons.io.FileUtils ;
 
-import com.sandy.common.util.StringUtil ;
 import com.sandy.jeecoach.JEECoach ;
 import com.sandy.jeecoach.api.jeetest.qbm.formatter.QuestionTextFormatter ;
 import com.sandy.jeecoach.dao.entity.master.TestQuestion ;
@@ -48,16 +48,12 @@ public class TestQuestionEx extends TestQuestion {
         setTargetExam            ( tq.getTargetExam()            ) ;
         setQuestionType          ( tq.getQuestionType()          ) ;
         setQuestionRef           ( tq.getQuestionRef()           ) ;
-        setLctContext            ( tq.getLctContext()            ) ;
         setQuestionText          ( tq.getQuestionText()          ) ;
         setQuestionFormattedText ( tq.getQuestionFormattedText() ) ;
         setAnswerText            ( tq.getAnswerText()            ) ;
         setDifficultyLevel       ( tq.getDifficultyLevel()       ) ;
         
         populateAttachments( getQuestionText() ) ;
-        if( StringUtil.isNotEmptyOrNull( getLctContext() ) ) {
-            populateAttachments( getLctContext() ) ;
-        }
     }
     
     private void populateAttachments( String questionText ) 
@@ -104,10 +100,11 @@ public class TestQuestionEx extends TestQuestion {
         tq.setTargetExam            ( this.getTargetExam()            ) ;
         tq.setQuestionType          ( this.getQuestionType()          ) ;
         tq.setQuestionRef           ( this.getQuestionRef()           ) ;
-        tq.setLctContext            ( this.getLctContext()            ) ;
         tq.setQuestionText          ( this.getQuestionText()          ) ;
         tq.setQuestionFormattedText ( this.getQuestionFormattedText() ) ;
         tq.setAnswerText            ( this.getAnswerText()            ) ;
         tq.setDifficultyLevel       ( this.getDifficultyLevel()       ) ;
+        tq.setCreationTime          ( new Timestamp( System.currentTimeMillis() ) ) ;
+        tq.setLastUpdateTime        ( new Timestamp( System.currentTimeMillis() ) ) ;
     }
 }

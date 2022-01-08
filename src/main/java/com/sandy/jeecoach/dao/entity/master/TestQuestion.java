@@ -38,7 +38,6 @@ public class TestQuestion {
     private String    questionType         = "SCA" ;
     private String    questionRef          = null ;
     private String    questionText         = null ;
-    private String    lctContext           = null ;
     private String    questionFormattedText= null ;
     private String    answerText           = null ;
     private Integer   difficultyLevel      = 1 ;

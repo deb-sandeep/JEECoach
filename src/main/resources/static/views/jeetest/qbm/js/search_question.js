@@ -211,7 +211,7 @@ sConsoleApp.controller( 'SearchQuestionController', function( $scope, $http, $lo
 	    
         console.log( "Synching questions = " + questionIds ) ;
         $scope.$parent.interactingWithServer = true ;
-        $http.post( '/SyncTestQuestionsToPimon', questionIds )
+        $http.post( '/SyncTestQuestionsToRemoteServer', questionIds )
         .then( 
             function( response ){
                 console.log( "Successfully synched question." ) ;

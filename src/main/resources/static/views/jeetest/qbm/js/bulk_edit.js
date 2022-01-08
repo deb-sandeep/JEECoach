@@ -73,7 +73,7 @@ sConsoleApp.controller( 'BulkEditController',
 		if( entry == null ) return ;
 		
 		if( entry.hidden ) {
-			$scope.saveEntry( entry.next ) ;
+			$scope.saveEntry( entry.next, true ) ;
 		}
 		
 		$scope.validationErrors.length = 0 ;
@@ -271,7 +271,6 @@ sConsoleApp.controller( 'BulkEditController',
             lateralThinkingLevel  : entry.difficultyLevel,
             projectedSolveTime    : entry.projTime,
             questionText          : qText,
-            lctContext            : null,
             questionFormattedText : null,
             answerText            : entry.ansText,
             synched               : false,

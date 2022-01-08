@@ -80,7 +80,15 @@ public class TestQuestionSynchronizer {
         }
         finally {
             if( response != null ) {
-                response.body().close() ;
+                if( response.code() == 500 ) {
+                    response.body().close() ;
+                    throw new Exception( "Server error. Message = " + 
+                                         response.message() ) ;
+                }
+                else {
+                    log.debug( "Successfully saved on server. " + 
+                               "Response code = " + response.code() ) ;
+                }
             }
         }
     }

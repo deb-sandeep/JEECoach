@@ -132,10 +132,6 @@ sConsoleApp.controller( 'EditQuestionController',
 		}) ;
 	}
 	
-	$scope.questionTypeChanged = function() {
-		$scope.question.lctContext = "" ;
-	}
-	
 	// --- [START] Internal Questions
 	
 	function insertAtCursor( myValue ) {
@@ -197,19 +193,6 @@ sConsoleApp.controller( 'EditQuestionController',
 			$scope.validationErrors.push( "Question Text should be specified." ) ;
 		}
 		
-		if( q.questionType == "LCT" ) {
-			if( q.lctContext.length == 0 ) {
-				errorsFound = true ;
-				$scope.validationErrors.push( "LCT context is absent." ) ;
-			}
-		}
-		else {
-			if( q.lctContext != null && q.lctContext.length > 0 ) {
-				errorsFound = true ;
-				$scope.validationErrors.push( "LCT context present in a non LCT question." ) ;
-			}
-		}
-
 		if( q.answerText == null || 
 		    ( typeof q.answerText === 'undefined' ) || 
 		    q.answerText.trim().length == 0 ) {
@@ -253,7 +236,6 @@ sConsoleApp.controller( 'EditQuestionController',
                     	$scope.question.book                  = $scope.lastSavedQuestion.book ;
                         $scope.question.targetExam            = $scope.lastSavedQuestion.targetExam ;       
                         $scope.question.questionType          = $scope.lastSavedQuestion.questionType ;         
-                        $scope.question.lctContext            = $scope.lastSavedQuestion.lctContext ;         
                         $scope.question.lateralThinkingLevel  = $scope.lastSavedQuestion.lateralThinkingLevel ;                 
                         $scope.question.projectedSolveTime    = $scope.lastSavedQuestion.projectedSolveTime ;
                         $scope.question.questionRef           = editHelper.nextQRef( $scope.lastSavedQuestion.questionRef ) ;
@@ -326,11 +308,6 @@ sConsoleApp.controller( 'EditQuestionController',
 		
 		if( $scope.question == null ) {
 			return ;
-		}
-		
-		if( $scope.question.lctContext != null && 
-			$scope.question.lctContext.length > 0 ) {
-			questionText = "<div class='lct-context'>" + $scope.question.lctContext + "</div>" ;
 		}
 		
 		if( $scope.question.questionText != null && 

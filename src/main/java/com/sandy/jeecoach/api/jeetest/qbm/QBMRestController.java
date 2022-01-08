@@ -70,6 +70,8 @@ public class QBMRestController {
     @Autowired
     private TestQuestionBindingRepository tqbRepo = null ;
     
+    private Boolean isExecutingOnServer = null ;
+    
     @GetMapping( "/QBTopicInsights" )
     public ResponseEntity<List<QBTopicInsight>> getQBInsights() {
         try {
@@ -254,12 +256,6 @@ public class QBMRestController {
         try {
             
             String questionText = question.getQuestionText() ;
-            if( StringUtil.isNotEmptyOrNull( question.getLctContext() ) ) {
-                questionText = "<div class='lct-context'>" + 
-                               question.getLctContext() + 
-                               "</div>" + 
-                               question.getQuestionText() ;
-            }
             
             question.setQuestionFormattedText( new QuestionTextFormatter().formatText( questionText ) ) ;
             if( question.getId() == -1 ) {
@@ -327,7 +323,7 @@ public class QBMRestController {
      * local server then posts a requests to the pimon server for it to 
      * import the local questions.
      */
-    @PostMapping( "/SyncTestQuestionsToPimon" )
+    @PostMapping( "/SyncTestQuestionsToRemoteServer" )
     public ResponseEntity<ResponseMsg> syncQuestions ( @RequestBody Integer[] ids ) {
         
         try {
@@ -352,8 +348,13 @@ public class QBMRestController {
     
     private boolean isExecutingOnServer() throws SocketException {
         
+        if( isExecutingOnServer != null ) {
+            return isExecutingOnServer ;
+        }
+        
         log.debug( "Checking if we are already executing on the server." ) ;
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces() ;
+        isExecutingOnServer = false ;
         
         for( NetworkInterface nif : Collections.list( nets ) ) {
             log.debug( "Investing network interface : " + nif.getDisplayName() ) ;
@@ -363,11 +364,12 @@ public class QBMRestController {
                 String ipAddress = address.getHostAddress() ;
                 log.debug( "   IP bound to this nif : " + ipAddress ) ;
                 if( ipAddress.equals( SERVER_IP ) ) {
-                    return true ;
+                    isExecutingOnServer = true ;
+                    break ;
                 }
             }
         }
-        return false ;
+        return isExecutingOnServer ;
     }
     
     /**
@@ -386,8 +388,11 @@ public class QBMRestController {
         }
         catch( Exception e ) {
             log.error( "Error formatting input", e ) ;
+            String message = "Error saving question on server. " + 
+                             "Msg = " + e.getMessage() ;
+            
             return ResponseEntity.status( 500 )
-                                 .body( new ResponseMsg( e.getMessage() ) ) ;
+                                 .body( new ResponseMsg( message ) ) ;
         }
     }
 
