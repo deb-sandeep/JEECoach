@@ -262,8 +262,8 @@ sConsoleApp.controller( 'EditTestController', function( $scope, $http, $routePar
 	
 	function sortQuestionsByAttribute( questions, attribute, dir ) {
 		questions.sort( function( q1, q2 ){
-			var val1 = ( attribute == "lat" ) ? q1.lateralThinkingLevel : q1.projectedSolveTime ;
-			var val2 = ( attribute == "lat" ) ? q2.lateralThinkingLevel : q2.projectedSolveTime ;
+			var val1 = ( attribute == "lat" ) ? q1.difficultyLevel : q1.projectedSolveTime ;
+			var val2 = ( attribute == "lat" ) ? q2.difficultyLevel : q2.projectedSolveTime ;
 			
 			if( q1.questionType == q2.questionType ) {
 				if( dir == "asc" ) {
@@ -445,7 +445,7 @@ sConsoleApp.controller( 'EditTestController', function( $scope, $http, $routePar
 	    
 	    for( var i=0; i<tgtArray.length; i++ ) {
 	    	xTicks.push( "" + (i+1) ) ;
-	    	latArray.push( tgtArray[i].lateralThinkingLevel ) ;
+	    	latArray.push( tgtArray[i].difficultyLevel ) ;
 	    	timeArray.push( tgtArray[i].projectedSolveTime ) ;
 	    }
 	    

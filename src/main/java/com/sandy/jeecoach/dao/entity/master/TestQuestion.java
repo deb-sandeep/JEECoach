@@ -41,6 +41,7 @@ public class TestQuestion {
     private String    questionFormattedText= null ;
     private String    answerText           = null ;
     private Integer   difficultyLevel      = 1 ;
+    private Integer   projectedSolveTime   = 120 ;
     private Boolean   synched              = Boolean.FALSE ;
     private Boolean   attempted            = Boolean.FALSE ;
     private Timestamp creationTime         = null ;

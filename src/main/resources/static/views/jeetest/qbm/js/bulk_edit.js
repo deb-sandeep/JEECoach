@@ -72,21 +72,22 @@ sConsoleApp.controller( 'BulkEditController',
 		
 		if( entry == null ) return ;
 		
-		if( entry.hidden ) {
-			$scope.saveEntry( entry.next, true ) ;
-		}
-		
-		$scope.validationErrors.length = 0 ;
-		if( editHelper.isAnswerSemanticallyValid( entry.ansText, entry.questionType, 
-				                                  $scope.validationErrors ) ) {
-			saveEntryOnServer( entry, saveLinkedEntry ) ;
+		if( entry.hidden || entry.saved ) {
+			$scope.saveEntry( entry.nextEntry, true ) ;
 		}
 		else {
-			for( var i=0; i<$scope.validationErrors.length; i++ ) {
-				$scope.validationErrors[i] = entry.qref + " : " + $scope.validationErrors[i] ;
-			}
-			$( '#validationErrorsDialog' ).modal( 'show' ) ;
-		}
+            $scope.validationErrors.length = 0 ;
+            if( editHelper.isAnswerSemanticallyValid( entry.ansText, entry.questionType, 
+                                                      $scope.validationErrors ) ) {
+                saveEntryOnServer( entry, saveLinkedEntry ) ;
+            }
+            else {
+                for( var i=0; i<$scope.validationErrors.length; i++ ) {
+                    $scope.validationErrors[i] = entry.qref + " : " + $scope.validationErrors[i] ;
+                }
+                $( '#validationErrorsDialog' ).modal( 'show' ) ;
+            }
+        }
 	}
 	
 	$scope.deleteBulkEntryMetaData = function( entryIndex ) {
@@ -268,7 +269,7 @@ sConsoleApp.controller( 'BulkEditController',
             targetExam            : tgtExam,
             questionType          : entry.questionType,
             questionRef           : entry.qref,
-            lateralThinkingLevel  : entry.difficultyLevel,
+            difficultyLevel       : entry.difficultyLevel,
             projectedSolveTime    : entry.projTime,
             questionText          : qText,
             questionFormattedText : null,
@@ -282,6 +283,7 @@ sConsoleApp.controller( 'BulkEditController',
             function( response ){
                 console.log( "Successfully saved question." ) ;
                 entry.saved = true ;
+                entry.hidden = true ;
                 if( saveLinkedEntry && entry.nextEntry != null ) {
                     $scope.saveEntry( entry.nextEntry, true ) ;
                 } 
