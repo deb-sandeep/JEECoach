@@ -303,6 +303,7 @@ sConsoleApp.controller( 'EditTestController', function( $scope, $http, $routePar
                 
                 $scope.examType = response.data.examType ;
                 $scope.shortName = response.data.shortName ;
+                $scope.customDuration = response.data.duration ;
                 $scope.assembledQuestions[ 'IIT - Physics'   ] = response.data.phyQuestions ;
                 $scope.assembledQuestions[ 'IIT - Chemistry' ] = response.data.chemQuestions ;
                 $scope.assembledQuestions[ 'IIT - Maths'     ] = response.data.mathQuestions ;
