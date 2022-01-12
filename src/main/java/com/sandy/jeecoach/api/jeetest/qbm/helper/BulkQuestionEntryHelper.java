@@ -3,6 +3,7 @@ package com.sandy.jeecoach.api.jeetest.qbm.helper;
 import java.io.File ;
 import java.io.FileFilter ;
 import java.io.IOException ;
+import java.io.InputStream ;
 import java.util.ArrayList ;
 import java.util.Collections ;
 import java.util.HashMap ;
@@ -25,41 +26,49 @@ public class BulkQuestionEntryHelper {
     
     static final Logger log = Logger.getLogger( BulkQuestionEntryHelper.class ) ;
     
-    public static Properties BULK_ANS_LOOKUP = new Properties() ;
-    
-    static {
-        try {
-            BULK_ANS_LOOKUP.load( JEECoach.class.getResourceAsStream( "/ans_lookup.properties" ) ) ;
-            preProcessBulkAnswers() ;
-        }
-        catch( IOException e ) {
-            log.error( "Could not load bulk answer lookup properties.", e ) ;
-        }
-    }
-    
-    public static void preProcessBulkAnswers() {
-        
-        for( Object key : BULK_ANS_LOOKUP.keySet() ) {
-            String value = BULK_ANS_LOOKUP.getProperty( (String)key ) ;
-            
-            value = value.trim() ;
-            value = value.replace( "(", "" ) ;
-            value = value.replace( ")", "" ) ;
-            value = value.replace( "A", "1" ) ;
-            value = value.replace( "B", "2" ) ;
-            value = value.replace( "C", "3" ) ;
-            value = value.replace( "D", "4" ) ;
-            
-            BULK_ANS_LOOKUP.put( key, value ) ;
-        }
-    }
+    private Properties ansLookupMap = new Properties() ;
     
     private TestQuestionRepository tqRepo = null ;
     
     public BulkQuestionEntryHelper( TestQuestionRepository repo ) {
         this.tqRepo = repo ;
+        loadAnswerLookup() ;
+    }
+    
+    private void loadAnswerLookup() {
+        try {
+            Properties prop = new Properties() ;
+            InputStream is = JEECoach.class.getResourceAsStream( "/ans_lookup.properties" ) ;
+            
+            prop.load( is ) ;
+            ansLookupMap.clear() ;
+            for( Object key : prop.keySet() ) {
+                String value = prop.getProperty( (String)key ) ;
+                processAnsLookupRecord( (String)key, value ) ;
+            }
+            
+            log.info( "Loaded answer lookup. " + prop.size() + " values." ) ;
+        }
+        catch( IOException e ) {
+            log.error( "Could not load bulk answer lookup properties.", e ) ;
+        }
     }
 
+    private void processAnsLookupRecord( String key, String value ) {
+        
+        value = value.trim() ;
+        value = value.replace( "(", "" ) ;
+        value = value.replace( ")", "" ) ;
+        value = value.replace( "A", "1" ) ;
+        value = value.replace( "B", "2" ) ;
+        value = value.replace( "C", "3" ) ;
+        value = value.replace( "D", "4" ) ;
+            
+        key = key.replace( '_', '/' ) ;
+        
+        ansLookupMap.put( key, value ) ;
+    }
+    
     public List<BulkQEntry> getEntries( String subjectName, Topic topic, 
                                         Book book, String baseQRef ) {
         
@@ -89,7 +98,10 @@ public class BulkQuestionEntryHelper {
                     lctCtxMap.put( qRef, img ) ;
                 }
                 else if( prevQRef == null || !prevQRef.equals( qRef ) ) {
-                    entry = new BulkQEntry( img, topic ) ;
+                    
+                    String ans = ansLookupMap.getProperty( img.getQRef(), "" ) ;
+                    
+                    entry = new BulkQEntry( img, topic, ans ) ;
                     qEntries.add( entry ) ;
                     
                     if( entry.isLCT() ) {

@@ -6,7 +6,6 @@ import java.io.File ;
 import java.util.ArrayList ;
 import java.util.List ;
 
-import com.sandy.jeecoach.api.jeetest.qbm.helper.BulkQuestionEntryHelper ;
 import com.sandy.jeecoach.dao.entity.master.Topic ;
 import com.sandy.jeecoach.util.JEEQuestionImage ;
 
@@ -27,9 +26,9 @@ public class BulkQEntry {
     private List<String> imgPaths  = new ArrayList<>() ;
     private List<String> imgNames  = new ArrayList<>() ;
     
-    public BulkQEntry( JEEQuestionImage qImg, Topic topic ) {
+    public BulkQEntry( JEEQuestionImage qImg, Topic topic, String ans ) {
         this.topic = topic ;
-        populateAttributes( qImg ) ;
+        populateAttributes( qImg, ans ) ;
         addImage( qImg ) ;
     }
     
@@ -56,18 +55,14 @@ public class BulkQEntry {
         }
     }
     
-    private void populateAttributes( JEEQuestionImage qImg ) {
+    private void populateAttributes( JEEQuestionImage qImg, String ans ) {
         
         this.qRef            = qImg.getQRef() ;
         this.questionType    = qImg.getQuestionType() ;
         this.difficultyLevel = qImg.getDifficultyLevel() ;
         this.projTime        = qImg.getProjectedTime() ;
         this.isLCT           = qImg.isLCT() ;
-        this.ansText         = lookupAns() ;
-    }
-    
-    private String lookupAns() {
-        return BulkQuestionEntryHelper.BULK_ANS_LOOKUP.getProperty( qRef, "" ) ;
+        this.ansText         = ans ;
     }
     
     public String toString() {
