@@ -9,7 +9,7 @@ public class JEETestLandingController {
     
     @RequestMapping( {"", "/"} )
     public String jeetest() {
-        return "jeetest/landing" ;
+        return "jeetest/landing/landing" ;
     }
     
     @RequestMapping( "/qb-management" )
