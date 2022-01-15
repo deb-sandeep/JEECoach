@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper ;
 import com.sandy.jeecoach.JEECoach ;
 import com.sandy.jeecoach.api.jeetest.qbm.vo.TestQuestionEx ;
 import com.sandy.jeecoach.api.jeetest.qbm.vo.TestQuestionEx.ImageData ;
+import com.sandy.jeecoach.core.util.JEECoachUtil ;
 import com.sandy.jeecoach.dao.entity.master.TestQuestion ;
 import com.sandy.jeecoach.dao.repository.master.TestQuestionRepository ;
 
@@ -33,15 +34,11 @@ public class TestQuestionSynchronizer {
     private String serverName = null ;
     
     public TestQuestionSynchronizer() {
-        this( null ) ;
-    }
-    
-    public TestQuestionSynchronizer( String serverName ) {
         tqRepo = JEECoach.getAppContext()
                          .getBean( TestQuestionRepository.class ) ;
-        this.serverName = serverName ;
+        this.serverName = JEECoachUtil.getProdServerAddress() ;
     }
-
+    
     public void syncQuestions( Integer[] ids ) throws Exception {
         
         List<Integer> qIds = Arrays.asList( ids ) ;

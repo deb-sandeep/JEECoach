@@ -160,7 +160,7 @@ public class TestConfiguratorRestController {
                 @PathVariable(name="testId", required=true) Integer testId ) {
         
         try {
-            if( JEECoachUtil.isOperatingOnPiMon() ) {
+            if( JEECoachUtil.isExecutingOnProdServer() ) {
                 return ResponseEntity.status( HttpStatus.BAD_REQUEST )
                                      .body( new ResponseMsg( "Already on server. Can't sync" ) ) ;
             }
@@ -367,7 +367,7 @@ public class TestConfiguratorRestController {
         ci.setDuration( config.getDuration() ) ;
         ci.setLastUpdateDate( new Timestamp( System.currentTimeMillis() ) ) ;
         
-        if( JEECoachUtil.isOperatingOnPiMon() ) {
+        if( JEECoachUtil.isExecutingOnProdServer() ) {
             ci.setSynched( true ) ;
         }
         

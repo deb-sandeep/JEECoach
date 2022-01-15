@@ -3,14 +3,9 @@ package com.sandy.jeecoach.api.jeetest.qbm;
 import java.io.File ;
 import java.math.BigDecimal ;
 import java.math.BigInteger ;
-import java.net.InetAddress ;
-import java.net.NetworkInterface ;
-import java.net.SocketException ;
 import java.sql.Timestamp ;
 import java.util.ArrayList ;
 import java.util.Arrays ;
-import java.util.Collections ;
-import java.util.Enumeration ;
 import java.util.HashMap ;
 import java.util.LinkedHashMap ;
 import java.util.List ;
@@ -53,11 +48,6 @@ public class QBMRestController {
     
     static final Logger log = Logger.getLogger( QBMRestController.class ) ;
     
-    private static final String SERVER_IP = "192.168.0.101" ;
-    private static final String SERVER_PORT = "8080" ;
-    
-    private static final String SERVER_HOST = SERVER_IP + ":" + SERVER_PORT ;
-    
     @Autowired
     private TopicRepository topicRepo = null ;
 
@@ -69,8 +59,6 @@ public class QBMRestController {
     
     @Autowired
     private TestQuestionBindingRepository tqbRepo = null ;
-    
-    private Boolean isExecutingOnServer = null ;
     
     @GetMapping( "/QBTopicInsights" )
     public ResponseEntity<List<QBTopicInsight>> getQBInsights() {
@@ -254,7 +242,6 @@ public class QBMRestController {
         // Also, if the question is not being saved on the server, force the
         // synched flag to false.
         try {
-            
             String questionText = question.getQuestionText() ;
             
             question.setQuestionFormattedText( new QuestionTextFormatter().formatText( questionText ) ) ;
@@ -280,7 +267,7 @@ public class QBMRestController {
             // local question which has been previously synched - if we 
             // don't turn off the synched marker, we won't be able to 
             // see this question in the list of unsynched questions.
-            if( !JEECoachUtil.isOperatingOnPiMon() ) {
+            if( !JEECoachUtil.isExecutingOnProdServer() ) {
                 question.setSynched( false ) ;
             }
         
@@ -327,13 +314,13 @@ public class QBMRestController {
     public ResponseEntity<ResponseMsg> syncQuestions ( @RequestBody Integer[] ids ) {
         
         try {
-            if( isExecutingOnServer() ) {
+            if( JEECoachUtil.isExecutingOnProdServer() ) {
                 return ResponseEntity.status( HttpStatus.BAD_REQUEST )
                                      .body( new ResponseMsg( "Already on server. Can't sync" ) ) ;
             }
             else {
                 TestQuestionSynchronizer synchronizer = null ;
-                synchronizer = new TestQuestionSynchronizer( SERVER_HOST ) ;
+                synchronizer = new TestQuestionSynchronizer() ;
                 synchronizer.syncQuestions( ids ) ;
                 
                 return ResponseEntity.status( HttpStatus.OK )
@@ -344,32 +331,6 @@ public class QBMRestController {
             log.error( "Error synchronizing questions to server", e ) ;
             return ResponseEntity.status( 500 ).body( null ) ;
         }
-    }
-    
-    private boolean isExecutingOnServer() throws SocketException {
-        
-        if( isExecutingOnServer != null ) {
-            return isExecutingOnServer ;
-        }
-        
-        log.debug( "Checking if we are already executing on the server." ) ;
-        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces() ;
-        isExecutingOnServer = false ;
-        
-        for( NetworkInterface nif : Collections.list( nets ) ) {
-            log.debug( "Investing network interface : " + nif.getDisplayName() ) ;
-            Enumeration<InetAddress> addresses = nif.getInetAddresses() ;
-            
-            for( InetAddress address : Collections.list(  addresses ) ) {
-                String ipAddress = address.getHostAddress() ;
-                log.debug( "   IP bound to this nif : " + ipAddress ) ;
-                if( ipAddress.equals( SERVER_IP ) ) {
-                    isExecutingOnServer = true ;
-                    break ;
-                }
-            }
-        }
-        return isExecutingOnServer ;
     }
     
     /**

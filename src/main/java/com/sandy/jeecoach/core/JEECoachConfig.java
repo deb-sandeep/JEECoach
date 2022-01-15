@@ -12,5 +12,6 @@ import lombok.Data ;
 public class JEECoachConfig {
 
     private boolean recordTestAttempt = true ;
-    private String envType = "dev" ;
+    private String prodServerIp = "192.168.0.101" ;
+    private String prodServerPort = "8080" ;
 }

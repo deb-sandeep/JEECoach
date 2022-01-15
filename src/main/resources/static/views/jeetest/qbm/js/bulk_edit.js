@@ -9,6 +9,8 @@ function BulkQEntry( entry ) {
 	this.imgPaths        = entry.imgPaths ;
 	this.hidden          = false ;
 	this.topic           = entry.topic ;
+	this.selected        = false ;
+	this.preambleText    = "" ;
 	
 	this.mmtOptions = [] ;
 	this.showMMTOptionsEditor = false ;
@@ -33,6 +35,7 @@ sConsoleApp.controller( 'BulkEditController',
 	
 	$scope.entries = [] ;
 	$scope.hideSaved = true ;
+	$scope.preambleText = null ;
 	
 	// --- [START] Controller initialization
 	
@@ -172,6 +175,27 @@ sConsoleApp.controller( 'BulkEditController',
 	    $scope.$broadcast( 'mmtEditorIsBeingShown', entry ) ;
 	}
 	
+	$scope.showPreambleDialog = function() {
+        $( '#preambleDialog' ).modal( 'show' ) ;
+    }
+    
+    $scope.hidePreambleDialog = function() {
+        $( '#preambleDialog' ).modal( 'hide' ) ;
+    }
+    
+    $scope.applyPreamble = function() {
+        console.log( "Preamble = " + $scope.preambleText ) ;
+        for( var i=0; i<$scope.entries.length; i++ ) {
+            var entry = $scope.entries[i] ;
+            if( !entry.hidden && !entry.saved ) {
+                if( entry.selected ) {
+                    entry.preambleText = $scope.preambleText ;
+                }
+            }
+        }
+        $scope.hidePreambleDialog() ;
+    }
+	
 	// --- [START] Internal functions
 	function validateBaseCriteria() {
 		
@@ -240,6 +264,10 @@ sConsoleApp.controller( 'BulkEditController',
     	var tgtExam = ( entry.questionType == "MCA" || 
     	                entry.questionType == "LCT" || 
     	                entry.questionType == "MMT" ) ? "ADV" : "MAIN" ;
+    	                
+    	if( entry.preambleText != null || entry.preambleText != "" ) {
+            qText = "<p>" + entry.preambleText + "</p><br/>" ;
+        }
     	
     	for( var i=0; i<entry.imgPaths.length; i++ ) {
     		qText += "{{@img " + entry.imgPaths[i] + "}}" ;
