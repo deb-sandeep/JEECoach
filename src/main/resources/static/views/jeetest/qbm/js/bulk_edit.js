@@ -266,7 +266,7 @@ sConsoleApp.controller( 'BulkEditController',
     	                entry.questionType == "MMT" ) ? "ADV" : "MAIN" ;
     	                
     	if( entry.preambleText != null || entry.preambleText != "" ) {
-            qText = "<p>" + entry.preambleText + "</p><br/>" ;
+            qText = "<div class='q-preamble'>" + entry.preambleText + "</div>" ;
         }
     	
     	for( var i=0; i<entry.imgPaths.length; i++ ) {

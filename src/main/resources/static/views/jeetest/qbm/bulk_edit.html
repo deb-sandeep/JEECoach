@@ -193,9 +193,10 @@
                             </span>
 					      </div>
 					      <div class="panel-body">
-					        <p ng-if="entry.preambleText != ''">
-					        {{entry.preambleText}}
-					        </p>
+					        <div ng-if="entry.preambleText != ''"
+					             class="q-preamble">
+					            {{entry.preambleText}}
+					        </div>
 					        <div ng-repeat="imgPath in entry.imgPaths track by $index">
 						        <img ng-src="/jeetest/images/{{imgPath}}"
 						             style="width:500px;"/>
