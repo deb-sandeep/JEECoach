@@ -25,9 +25,9 @@ sConsoleApp.controller( 'AdvTestConfigSummaryDashboardController', function( $sc
 		$location.path( "/editTest/-1" ) ;
 	}
 	
-    $scope.syncTestToPiMon = function( test ) {
-        console.log( "Synching test = " + test.id + " to pimon." ) ;
-        syncTestToPiMon( test ) ;
+    $scope.syncTestToProdServer = function( test ) {
+        console.log( "Synching test = " + test.id + " to production server." ) ;
+        syncTestToProdServer( test ) ;
     }
     
     $scope.cloneTest = function( testId ) {
@@ -89,12 +89,12 @@ sConsoleApp.controller( 'AdvTestConfigSummaryDashboardController', function( $sc
     }
     
     
-    function syncTestToPiMon( test ) {
+    function syncTestToProdServer( test ) {
         
-        console.log( "Synching test to PiMon." ) ;
+        console.log( "Synching test to production server." ) ;
         
         $scope.$parent.interactingWithServer = true ;
-        $http.post( '/SyncTestToPimon/' + test.id )
+        $http.post( '/syncTestToProdServer/' + test.id )
         .then( 
             function( response ){
                 console.log( "Successfully synched test configuration." ) ;

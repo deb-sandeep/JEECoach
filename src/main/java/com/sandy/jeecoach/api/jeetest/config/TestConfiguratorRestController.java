@@ -33,8 +33,6 @@ public class TestConfiguratorRestController {
     
     static final Logger log = Logger.getLogger( TestConfiguratorRestController.class ) ;
     
-    private static final String SERVER_HOST = "192.168.0.117:8080" ;
-    
     @Autowired
     private TestConfigIndexRepository tciRepo = null ;
     
@@ -155,7 +153,7 @@ public class TestConfiguratorRestController {
      * enables us to create tests offline on a local app and then sync it
      * to PiMon once connectivity is established.
      */
-    @PostMapping( "/SyncTestToPimon/{testId}" )
+    @PostMapping( "/SyncTestToProdServer/{testId}" )
     public ResponseEntity<ResponseMsg> syncTestToPiMon( 
                 @PathVariable(name="testId", required=true) Integer testId ) {
         
@@ -167,7 +165,7 @@ public class TestConfiguratorRestController {
             else {
                 TestSynchronizer synchronizer = null ;
                 TestConfiguration config = loadConfig( testId ) ;
-                synchronizer = new TestSynchronizer( SERVER_HOST ) ;
+                synchronizer = new TestSynchronizer() ;
                 synchronizer.syncTest( config ) ;
                 
                 config.getTestConfigIndex().setSynched( true ) ;

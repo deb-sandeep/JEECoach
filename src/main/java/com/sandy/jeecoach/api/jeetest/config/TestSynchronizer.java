@@ -3,6 +3,7 @@ package com.sandy.jeecoach.api.jeetest.config;
 import org.apache.log4j.Logger ;
 
 import com.fasterxml.jackson.databind.ObjectMapper ;
+import com.sandy.jeecoach.core.util.JEECoachUtil ;
 
 import okhttp3.MediaType ;
 import okhttp3.OkHttpClient ;
@@ -17,12 +18,6 @@ public class TestSynchronizer {
     public static final MediaType JSON
                         = MediaType.parse("application/json; charset=utf-8") ; 
     
-    private String serverName = null ;
-    
-    public TestSynchronizer( String serverName ) {
-        this.serverName = serverName ;
-    }
-
     public void syncTest( TestConfiguration config ) throws Exception {
         
         TestConfiguration clone = ( TestConfiguration )config.clone() ;
@@ -40,7 +35,11 @@ public class TestSynchronizer {
     private void postJSONToServer( String json ) 
         throws Exception {
         
-        String url = "http://" + this.serverName + "/TestConfiguration" ;
+        
+        String serverAddress = JEECoachUtil.getProdServerAddress() ;
+        String url = "http://" + serverAddress + "/TestConfiguration" ;
+        
+        log.debug( "Posting to " + url ) ;
         
         OkHttpClient client = new OkHttpClient() ;
         RequestBody body = RequestBody.create( JSON, json ) ;
@@ -52,6 +51,10 @@ public class TestSynchronizer {
         
         try {
             response = client.newCall( request ).execute() ;
+        }
+        catch( Exception e ) {
+            log.error( "Test synchronization error", e ) ;
+            throw e ;
         }
         finally {
             if( response != null ) {
