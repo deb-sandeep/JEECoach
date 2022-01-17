@@ -1,3 +1,5 @@
+var questionAttemptMap = {} ;
+    
 function Activity( qNum ) {
 	this.questionNum = qNum ;
 	this.start = 0 ;
@@ -6,7 +8,11 @@ function Activity( qNum ) {
 }
 
 function GanttActivity( activity ) {
-	this.label = activity.questionNum ;
+    
+    var attempt = questionAttemptMap[activity.questionNum] ;
+    var isAnsCorrect = attempt.isCorrect ? "" : "[X] " ;
+    
+	this.label = isAnsCorrect + activity.questionNum ;
 	this.start = activity.start ;
 	this.duration = activity.duration ;
 	this.color = getColor() ;
@@ -35,6 +41,15 @@ function GanttActivity( activity ) {
 
 sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $http, $location, $routeParams ) {
     
+    var questionIdNumMap = {} ;
+    var questionActivityListMap = {} ;
+    var lapMarkers = [] ;
+    
+    var graph = null ;
+    var allGraphData = [] ;
+    var currentGraphData = [] ;
+    var graphTooltips = [] ;
+
 	$scope.$parent.navBarTitle = "Test Attempt Time Sequence" ;
 	$scope.testAttemptId = $routeParams.id ;
 	$scope.questions = null ;
@@ -51,10 +66,6 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
 	    'rgba(255,51,102,0.4)',
 	    'rgba(204,0,0,0.4)'
 	] ;
-	
-	var questionIdNumMap = {} ;
-	var questionActivityListMap = {} ;
-	var lapMarkers = [] ;
 	
 	// -----------------------------------------------------------------------
 	// --- [START] Controller initialization ---------------------------------
@@ -89,85 +100,6 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
     	return "Q-" + (index+1) ;
     }
     
-    function renderActivityGraph() {
-    	
-    	var data = [] ;
-    	var tooltips = [] ;
-    	
-    	for( var i=0; i<$scope.questions.length; i++ ) {
-    		var question = $scope.questions[i] ;
-    		var attempt = $scope.questionAttempts[i] ;
-    		var qNum = getQNum( i ) ;
-    		
-    		var activities = questionActivityListMap[ qNum ] ;
-    		var ganttActivities = [] ;
-    		
-    		// If this question has not been visited, no click stream activity
-    		// would have been generated. This would cause RGraph to throw
-    		// and error. We inject a dummy activity of duration 0.
-    		if( activities.length == 0 ) {
-    			activities.push( new Activity( qNum ) ) ;
-    		}
-    		
-    		for( var j=0; j<activities.length; j++ ) {
-    			var activity = activities[j] ;
-    			ganttActivities.push( new GanttActivity( activity ) ) ;
-    			
-    			var tooltip = qNum ;
-    			tooltip += "<br>" + activity.duration + " sec" ;
-    			if( activity.transitionEvent != null ) {
-    			    tooltip += "<br>" + activity.transitionEvent ;
-    			}
-    			if( !attempt.isCorrect ) {
-                    tooltip += "<br> Incorrect answer" ;
-                    tooltip += "<br> Root cause - " + attempt.rootCause ;
-    			}
-    			else {
-                    tooltip += "<br> Correct answer" ;
-    			}
-    			tooltip += "<br> Total time = " + attempt.timeSpent ;
-    			tooltips.push( tooltip ) ;
-    		}
-    		
-    		data.push( ganttActivities ) ;
-    	}
-    	
-    	var maxTime = ($scope.clickEvents[ $scope.clickEvents.length - 1 ].timeMarker) / 1000 ;
-    	maxTime = Math.floor( maxTime ) ;
-    	
-    	var canvas = document.getElementById( 'testAttemptGantt' ) ;
-    	canvas.width = window.innerWidth ;
-    	canvas.height = window.innerHeight - 50 ;
-    	
-    	var xLabels = [] ;
-    	var xAxisDivs = Math.floor(maxTime/300) ;
-    	
-    	for( var i=0; i<xAxisDivs; i++ ) {
-    		xLabels.push( "" + (i+1)*5 ) ;
-    	}
-
-	    var canvas = document.getElementById( 'testAttemptGantt' ) ;
-	    RGraph.reset( canvas ) ;
-	    
-        new RGraph.Gantt({
-            id: 'testAttemptGantt',
-            data: data,
-            options: {
-            	backgroundGrid : true,
-            	backgroundGridVlinesCount: xAxisDivs,
-            	xaxisLabels : xLabels,
-            	xaxisScaleMax: maxTime,
-            	yaxisLabelsSize: 10,
-            	tooltips: tooltips,
-            	tooltipsEvent : 'mousemove', 
-                hmargin: 5,
-                colorsDefault: 'green',
-                vmargin: 1,
-                backgroundVbars: lapMarkers            
-            }
-        }).draw();
-    }
-	
     function fetchTestClickEventDetails( testAttemptId ) {
     	
     	console.log( "Fetching click events for test attempt : " + testAttemptId ) ;
@@ -180,9 +112,9 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
                 $scope.questions = response.data[1] ;
                 $scope.questionAttempts = response.data[2] ;
                 
-                createQuestionMaps( $scope.questions ) ;
-                processClickStreamEvents( $scope.clickEvents, $scope.questions ) ;
-                renderActivityGraph() ;
+                createQuestionMaps() ;
+                processClickStreamEvents( $scope.clickEvents ) ;
+                setUpActivityGraph() ;
                 
             	if( $scope.autoRefresh ) {
             		setTimeout( autoRefreshGraph, 5000 ) ;
@@ -199,18 +131,25 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
         }) ;
     }
     
-    function createQuestionMaps( questions ) {
+    function createQuestionMaps() {
+        
         lapMarkers.length = 0 ;
-    	for( var i=0; i<questions.length; i++ ) {
-    		var question = questions[i] ;
+        questionIdNumMap = {} ;
+        questionAttemptMap = {} ;
+        
+    	for( var i=0; i<$scope.questions.length; i++ ) {
+    		var question = $scope.questions[i] ;
+    		var attempt  = $scope.questionAttempts[i] ;
+    		
     		var qNum = getQNum( i ) ;
     		
     		questionIdNumMap[ question.id ] = qNum ;
+    		questionAttemptMap[ qNum ] = attempt ;
     		questionActivityListMap[ qNum ] = [] ;
     	}
     }
     
-    function processClickStreamEvents( clickEvents, questions ) {
+    function processClickStreamEvents( clickEvents ) {
     	
     	var lastActivity = null ;
     	var currentLapStartTime = 0 ;
@@ -264,6 +203,103 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
             }
     	}
     }
+    
+    function setUpActivityGraph() {
+        
+        graphTooltips.length = 0 ;
+        allGraphData.length = 0 ;
+        currentGraphData.length = 0 ;
+        
+        setUpRGraph() ;
+        
+        for( var i=0; i<$scope.questions.length; i++ ) {
+            var attempt = $scope.questionAttempts[i] ;
+            var qNum = getQNum( i ) ;
+            
+            var activities = questionActivityListMap[ qNum ] ;
+            var ganttActivities = [] ;
+            
+            // If this question has not been visited, no click stream activity
+            // would have been generated. This would cause RGraph to throw
+            // and error. We inject a dummy activity of duration 0.
+            if( activities.length == 0 ) {
+                var activity = new Activity( qNum ) ;
+                activities.push( activity ) ;
+            }
+            
+            for( var j=0; j<activities.length; j++ ) {
+                var activity = activities[j] ;
+                ganttActivities.push( new GanttActivity( activity ) ) ;
+                
+                var tooltip = qNum ;
+                tooltip += "<br>" + activity.duration + " sec" ;
+                if( activity.transitionEvent != null ) {
+                    tooltip += "<br>" + activity.transitionEvent ;
+                }
+                if( !attempt.isCorrect ) {
+                    tooltip += "<br> Incorrect answer" ;
+                    tooltip += "<br> Root cause - " + attempt.rootCause ;
+                }
+                else {
+                    tooltip += "<br> Correct answer" ;
+                }
+                tooltip += "<br> Total time = " + attempt.timeSpent ;
+                
+                graphTooltips.push( tooltip ) ;
+            }
+            
+            allGraphData.push( ganttActivities ) ;
+        }
+        
+        animateGantt() ;
+    }
+    
+    function setUpRGraph() {
+        
+        var maxTime = ($scope.clickEvents[ $scope.clickEvents.length - 1 ].timeMarker) / 1000 ;
+        maxTime = Math.floor( maxTime ) ;
+        
+        var canvas = document.getElementById( 'testAttemptGantt' ) ;
+        canvas.width = window.innerWidth ;
+        canvas.height = window.innerHeight - 50 ;
+        
+        var xLabels = [] ;
+        var xAxisDivs = Math.floor(maxTime/300) ;
+        
+        for( var i=0; i<xAxisDivs; i++ ) {
+            xLabels.push( "" + (i+1)*5 ) ;
+        }
+
+        RGraph.reset( canvas ) ;
+        
+        graph = new RGraph.Gantt({
+            id: 'testAttemptGantt',
+            data: currentGraphData,
+            options: {
+                backgroundGrid : true,
+                backgroundGridVlinesCount: xAxisDivs,
+                xaxisLabels : xLabels,
+                xaxisScaleMax: maxTime,
+                yaxisLabelsSize: 10,
+                tooltips: graphTooltips,
+                tooltipsEvent : 'mousemove', 
+                hmargin: 5,
+                colorsDefault: 'green',
+                vmargin: 1,
+                backgroundVbars: lapMarkers            
+            }
+        }).draw() ;
+    }
+    
+    function animateGantt() {
+        
+        if( allGraphData.length > 0 ) {
+            currentGraphData.push( allGraphData.shift() ) ;
+            RGraph.redraw() ;
+            
+            setTimeout( animateGantt, 1000 ) ;
+        }        
+    }    
     
     // --- [END] Local functions
 } ) ;
