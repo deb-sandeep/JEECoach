@@ -315,7 +315,7 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
             animateGantt() ;
         }
         else {
-            setTimeout( animateGantt, 200 ) ;
+            setTimeout( animateGantt, (activity.duration * 10) ) ;
         }
     }
     
