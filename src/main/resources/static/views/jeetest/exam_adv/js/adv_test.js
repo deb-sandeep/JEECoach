@@ -327,8 +327,8 @@ sConsoleApp.controller( 'JEEAdvTestController', function( $scope, $http, $rootSc
             lapDetails.attemptState = q.attemptState ;
             
             snapshots.push({
-                testAttemptId  : $scope.$parent.testAttempt.id ,
-                questionId     : q.question.id ,
+                testAttemptId  : $scope.$parent.testAttempt.id,
+                questionId     : q.question.id,
                 lapName        : $scope.currentLapName,
                 timeSpent      : lapDetails.timeSpent, 
                 attemptStatus  : q.attemptState

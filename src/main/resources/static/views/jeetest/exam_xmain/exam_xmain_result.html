@@ -1,13 +1,13 @@
 <h2 style="text-align:center;">Score : {{totalScore}} / {{totalMarks}} </h2>
 <div id="test-result">
     <div id="test-result-summary">
-        <table align="center" class="pure-table pure-table-horizontal"
-               style="font-size:16px;">
+        <table class="pure-table pure-table-horizontal"
+               style="font-size:16px;text-align:center;">
             <thead>
                 <tr>
                     <th></th>
                     <th class="q-attribute">Lat</th>
-                    <th class="q-attribute">Solve</br>Time</th>
+                    <th class="q-attribute">Solve<br/>Time</th>
                     <th class="q-attribute">Correct<br/>Answer</th>
                     <th></th>
                     <th>Answer</th>
@@ -58,8 +58,9 @@
         </table>
     </div>
     <div id="test-question-display">
-        <table align="center" class="pure-table pure-table-horizontal"
-               ng-show="selectedQuestion != null">
+        <table ng-show="selectedQuestion != null"
+               class="pure-table pure-table-horizontal"
+               style="text-align:center;">
             <tr>
                 <th>Question ID</th>
                 <td>{{selectedQuestion.question.id}}</td>
