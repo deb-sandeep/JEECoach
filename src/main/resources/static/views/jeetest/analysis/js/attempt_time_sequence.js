@@ -195,7 +195,7 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
     			var qNum = questionIdNumMap[ event.payload ] ;
     			
     			var activity = new Activity( qNum ) ;
-    			activity.start = Math.floor( event.timeMarker/1000 ) ;
+    			activity.start = Math.floor( event.timeMarker/1000 ) + 5 ;
     			
     			questionActivityListMap[ qNum ].push( activity ) ;
     			allActivities.push( activity ) ;
@@ -224,10 +224,10 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
     		    currentLapStartTime = Math.floor( event.timeMarker/1000 ) ;
     		}
             else if( eventType == ClickStreamEvent.prototype.LAP_END ) {
-                currentLapEndTime = Math.floor( event.timeMarker/1000 ) ;
+                currentLapEndTime = Math.floor( event.timeMarker/1000 ) + 5 ;
                 lapMarkers.push( [
                     currentLapStartTime,
-                    (currentLapEndTime - currentLapStartTime),
+                    (currentLapEndTime - currentLapStartTime) - 5,
                     lapColors[ currentLapIndex ]
                 ]) ;
             }
@@ -315,7 +315,7 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
             animateGantt() ;
         }
         else {
-            setTimeout( animateGantt, (activity.duration * 10) ) ;
+            setTimeout( animateGantt, (activity.duration * 20) ) ;
         }
     }
     
@@ -323,7 +323,7 @@ sConsoleApp.controller( 'TestAttemptTimeSequenceController', function( $scope, $
         tooltips.length = 0 ;
         for( var i=0; i<graphData.length; i++ ) {
             for( var j=0; j<graphData[i].length; j++ ) {
-                tooltips.push( graphData[i][j].tooltip ) ;
+                tooltips.push( graphData[i][j].tooltip ) ; 
             }
         }
     }
