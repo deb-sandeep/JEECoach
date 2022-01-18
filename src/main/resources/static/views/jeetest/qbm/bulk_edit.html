@@ -122,7 +122,9 @@
                                     </span>
                                   </td>
                                   <td>
-                                    <input type="checkbox" ng-model="entry.selected">
+                                    <input type="checkbox" 
+                                           ng-model="entry.selected"
+                                           ng-change="entrySelected( entry )">
                                   </td>
                                   <td>
                                     <input class="form-control"  type="text" ng-model="entry.imgNames" style="width:100%;font-size:10px"/>

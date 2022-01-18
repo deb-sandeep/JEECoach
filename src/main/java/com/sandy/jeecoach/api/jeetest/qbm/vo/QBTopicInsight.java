@@ -9,8 +9,9 @@ import lombok.Data ;
 public class QBTopicInsight {
     
     private Integer topicId = null ;
-    private String subjectName ;
-    private String topicName ;
+    private String  subjectName ;
+    private Integer standard = 0 ;
+    private String  topicName ;
     private Integer totalQuestions = 0 ;
     private Integer attemptedQuestions = 0 ;
     private Integer assignedQuestions = 0 ;

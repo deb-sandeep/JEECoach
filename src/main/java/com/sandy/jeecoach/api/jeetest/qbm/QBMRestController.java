@@ -388,8 +388,9 @@ public class QBMRestController {
         for( Object[] tupule : tupules ) {
             Integer topicId      = (Integer)tupule[0] ;
             String  subjectName  = (String )tupule[1] ;
-            String  topicName    = (String )tupule[2] ;
-            String  questionType = (String )tupule[3] ;
+            Integer standard     = (Integer)tupule[2] ;
+            String  topicName    = (String )tupule[3] ;
+            String  questionType = (String )tupule[4] ;
             
             // Total number of questions in this topic's question bank
             Integer numQ = 0 ; 
@@ -418,12 +419,13 @@ public class QBMRestController {
             
             insight.setTopicId( topicId ) ;
             insight.setSubjectName( subjectName ) ;
+            insight.setStandard( standard ) ;
             insight.setTopicName( topicName ) ;
             
             if( questionType != null ) {
-                numQ = ((BigInteger)tupule[4]).intValue() ;
-                attQ = ((BigDecimal)tupule[5]).intValue() ;
-                assQ = ((BigInteger)tupule[6]).intValue() ;
+                numQ = ((BigInteger)tupule[5]).intValue() ;
+                attQ = ((BigDecimal)tupule[6]).intValue() ;
+                assQ = ((BigInteger)tupule[7]).intValue() ;
                 avaQ = numQ - assQ ; 
                 
                 insight.setTotalQuestions( insight.getTotalQuestions() + numQ ) ;

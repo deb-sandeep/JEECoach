@@ -116,7 +116,7 @@ sConsoleApp.controller( 'QBInsightController', function( $scope, $http, $locatio
 				phyAttemptedQ += insight.attemptedQuestions ;
 				phyAssignedQ  += insight.assignedQuestions ;
 				
-				phyTopics.push( insight.topicName ) ;
+				phyTopics.push( insight.topicName + " [Std-" + insight.standard + "]" ) ;
 				phyTopicsInsights.push( [ 
 					insight.availableQuestionsByType['SCA'], 
 					insight.availableQuestionsByType['MCA'], 
@@ -131,7 +131,7 @@ sConsoleApp.controller( 'QBInsightController', function( $scope, $http, $locatio
 				chemAttemptedQ += insight.attemptedQuestions ;
 				chemAssignedQ  += insight.assignedQuestions ;
 				
-				chemTopics.push( insight.topicName ) ;
+				chemTopics.push( insight.topicName  + " [Std-" + insight.standard + "]" ) ;
 				chemTopicsInsights.push( [ 
 					insight.availableQuestionsByType['SCA'], 
 					insight.availableQuestionsByType['MCA'], 
@@ -146,7 +146,7 @@ sConsoleApp.controller( 'QBInsightController', function( $scope, $http, $locatio
 				mathAttemptedQ += insight.attemptedQuestions ;
 				mathAssignedQ  += insight.assignedQuestions ;
 				
-				mathTopics.push( insight.topicName ) ;
+				mathTopics.push( insight.topicName + " [Std-" + insight.standard + "]" ) ;
 				mathTopicsInsights.push( [ 
 					insight.availableQuestionsByType['SCA'], 
 					insight.availableQuestionsByType['MCA'], 

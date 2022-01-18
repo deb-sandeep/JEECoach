@@ -16,6 +16,7 @@ function BulkQEntry( entry ) {
 	this.showMMTOptionsEditor = false ;
 	
 	this.nextEntry = null ;
+	this.prevEntry = null ;
 }
 
 sConsoleApp.controller( 'BulkEditController', 
@@ -195,6 +196,15 @@ sConsoleApp.controller( 'BulkEditController',
         }
         $scope.hidePreambleDialog() ;
     }
+    
+    $scope.entrySelected = function( entry ) {
+        
+        var prevEntry = entry.prevEntry ;
+        while( prevEntry != null ) {
+            prevEntry.selected = entry.selected ;
+            prevEntry = prevEntry.prevEntry ;
+        }
+    }
 	
 	// --- [START] Internal functions
 	function validateBaseCriteria() {
@@ -238,6 +248,7 @@ sConsoleApp.controller( 'BulkEditController',
                 var lastEntry = null ;
                 for( var i=0; i<response.data.length; i++ ) {
                 	var newEntry = new BulkQEntry( response.data[i] ) ;
+                	newEntry.prevEntry = lastEntry ;
                 	if( lastEntry != null ) {
                 		lastEntry.nextEntry = newEntry ;
                 	}

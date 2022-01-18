@@ -52,6 +52,7 @@ public interface TestQuestionRepository
               "select "
             + "    tm.id as topicId, "
             + "    tm.subject_name as subjectName, "
+            + "    tm.std as standard, "
             + "    tm.topic_name as topicName, "
             + "    mqm.question_type as questionType, "
             + "    count( mqm.id ) as totalQuestions, "
